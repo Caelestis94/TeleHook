@@ -17,6 +17,7 @@ services:
       
       # Security
       - Security__ApiKey=${TELEHOOK_API_KEY}
+      - SECURITY__TrustForwardedHeaders=${TRUST_FORWARDED_HEADERS:-false}
       
       # Logging
       - Serilog__MinimumLevel__Default=${LOG_LEVEL:-Information}

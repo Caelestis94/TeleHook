@@ -12,6 +12,12 @@ public static class ApplicationBuilderExtensions
     {
         app.UseCors("AllowAll");
         
+        // Configure forwarded headers if enabled
+        if (app.Configuration.ShouldTrustForwardedHeaders())
+        {
+            app.UseForwardedHeaders(ConfigurationExtensions.GetForwardedHeadersOptions());
+        }
+        
         app.UseSerilogRequestLogging(options =>
         {
             options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>

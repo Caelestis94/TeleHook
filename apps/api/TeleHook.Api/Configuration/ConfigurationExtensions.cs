@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using System.Net;
+using Microsoft.AspNetCore.HttpOverrides;
 using Serilog;
 using Serilog.Events;
 using TeleHook.Api.Data;
@@ -87,5 +89,22 @@ public static class ConfigurationExtensions
         });
         
         return host;
+    }
+
+    public static bool ShouldTrustForwardedHeaders(this IConfiguration configuration)
+    {
+        return configuration.GetValue<bool>("Security:TrustForwardedHeaders", false);
+    }
+
+    public static ForwardedHeadersOptions GetForwardedHeadersOptions()
+    {
+        return new ForwardedHeadersOptions
+        {
+            ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto,
+            KnownProxies = { 
+                IPAddress.Parse("127.0.0.1"),
+                IPAddress.Parse("::1") 
+            }
+        };
     }
 }

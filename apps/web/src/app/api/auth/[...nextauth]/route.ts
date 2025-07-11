@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import type { OAuthConfig } from "next-auth/providers/oauth";
+import { headers } from "next/headers";
 import {
   API_KEY,
   BACKEND_URL,
@@ -65,6 +66,17 @@ const createOIDCProvider = (): OAuthConfig<TeleHookUser> | null => {
   } as OAuthConfig<TeleHookUser>;
 };
 
+// Get client IP from headers
+const getClientIP = async (): Promise<string> => {
+  const headersList = await headers();
+  return (
+    headersList.get("x-forwarded-for")?.split(",")[0] ||
+    headersList.get("x-real-ip") ||
+    headersList.get("x-client-ip") ||
+    "unknown"
+  );
+};
+
 const handler = NextAuth({
   providers: [
     // Add OIDC provider if configured
@@ -108,9 +120,14 @@ const handler = NextAuth({
               displayName: user.displayName,
             };
           }
+          
+          // Log failed authentication attempt
+          const clientIP = await getClientIP();
+          console.log(`[SECURITY] Failed login attempt from ${clientIP} for email: ${credentials.email}`);
           return null;
         } catch (error) {
-          console.error("Auth error:", error);
+          const clientIP = await getClientIP();
+          console.log(`[SECURITY] Authentication error from ${clientIP} for email: ${credentials.email} - ${error}`);
           return null;
         }
       },
@@ -178,10 +195,8 @@ const handler = NextAuth({
             }),
           });
           if (!response.ok) {
-            console.error(
-              "Failed to create/update OIDC user in backend:",
-              await response.text()
-            );
+            const clientIP = await getClientIP();
+            console.log(`[SECURITY] Failed OIDC backend sync from ${clientIP} for email: ${user.email} - ${await response.text()}`);
             return false;
           }
           const backendUser: TeleHookUser = await response.json();
@@ -189,7 +204,8 @@ const handler = NextAuth({
 
           return true;
         } catch (error) {
-          console.error("Error during OIDC sign-in:", error);
+          const clientIP = await getClientIP();
+          console.log(`[SECURITY] OIDC sign-in error from ${clientIP} for email: ${user.email} - ${error}`);
           return false;
         }
       }
@@ -207,8 +223,15 @@ const handler = NextAuth({
   },
 
   events: {
-    async signOut() {},
-    async signIn() {},
+    async signOut({ token }) {
+      const clientIP = await getClientIP();
+      console.log(`[SECURITY] User signed out from ${clientIP} - ${token?.email || 'unknown'}`);
+    },
+    async signIn({ user, account, isNewUser }) {
+      const clientIP = await getClientIP();
+      const provider = account?.provider === "oidc" ? OIDC_PROVIDER_NAME : account?.provider;
+      console.log(`[SECURITY] Successful login from ${clientIP} - ${user.email} via ${provider}${isNewUser ? ' (new user)' : ''}`);
+    },
   },
 
   session: {
