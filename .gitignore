@@ -20,3 +20,4 @@ Database/
 *.log
 *.db
 *.sqlite
+tag_message.txt
