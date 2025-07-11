@@ -1,0 +1,65 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+README.md
+*.md
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+**/bin
+**/obj
+**/node_modules
+**/.next
+**/dist
+**/build
+
+# Runtime logs only (not source files)
+*.log
+apps/api/logs/
+apps/web/logs/
+
+# Environment files
+**/.env*
+!**/.env.example
+
+# Tests
+**/coverage
+**/*.test.*
+**/*.spec.*
+
+# Dependencies
+**/package-lock.json
+**/yarn.lock
+
+# Development
+docker-compose.yml
+docker-compose.*.yml
+Dockerfile*
+!Dockerfile
+
+# Temporary files
+**/tmp
+**/temp
+
+# Exclude docker directory
+docker/
+
+# Exclude test projects from build context
+**/*.Tests/
+**/*.Test/
+
+# Exclude development configurations
+**/launchSettings.json
+**/appsettings.Development.json

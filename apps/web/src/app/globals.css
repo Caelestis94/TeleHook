@@ -1,0 +1,340 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@tailwind utilities;
+
+@custom-variant dark (&:is(.dark *));
+
+html {
+  height: 100%;
+  height: -webkit-fill-available;
+}
+
+body {
+  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
+}
+
+/* Ensure the app container takes full height */
+#__next {
+  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
+}
+
+/* Additional mobile viewport units support */
+@supports (height: 100dvh) {
+  html,
+  body {
+    min-height: 100dvh;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.65rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.141 0.005 285.823);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.141 0.005 285.823);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.141 0.005 285.823);
+  --primary: oklch(0.623 0.214 259.815);
+  --primary-foreground: oklch(0.97 0.014 254.604);
+  --secondary: oklch(0.967 0.001 286.375);
+  --secondary-foreground: oklch(0.21 0.006 285.885);
+  --muted: oklch(0.967 0.001 286.375);
+  --muted-foreground: oklch(0.552 0.016 285.938);
+  --accent: oklch(0.967 0.001 286.375);
+  --accent-foreground: oklch(0.21 0.006 285.885);
+  --destructive: oklch(0.577 0.245 27.325);
+  --success: oklch(0.67 0.1948 146.75);
+  --border: oklch(0.92 0.004 286.32);
+  --input: oklch(0.92 0.004 286.32);
+  --ring: oklch(0.623 0.214 259.815);
+  --chart-1: oklch(75.372% 0.1269 258.89);
+  --chart-2: oklch(68.39% 0.16749 258.54);
+  --chart-3: oklch(61.873% 0.20673 259.23);
+  --chart-4: oklch(54.082% 0.2319 260.87);
+  --chart-5: oklch(44.804% 0.18784 260.49);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.141 0.005 285.823);
+  --sidebar-primary: oklch(0.623 0.214 259.815);
+  --sidebar-primary-foreground: oklch(0.97 0.014 254.604);
+  --sidebar-accent: oklch(0.967 0.001 286.375);
+  --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
+  --sidebar-border: oklch(0.92 0.004 286.32);
+  --sidebar-ring: oklch(0.623 0.214 259.815);
+}
+
+.dark {
+  --background: oklch(0.141 0.005 285.823);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.21 0.006 285.885);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.21 0.006 285.885);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.546 0.245 262.881);
+  /* --primary-foreground: oklch(0.379 0.146 265.522); */
+  --secondary: oklch(0.274 0.006 286.033);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.274 0.006 286.033);
+  --muted-foreground: oklch(0.705 0.015 286.067);
+  --accent: oklch(0.274 0.006 286.033);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.488 0.243 264.376);
+  --chart-1: oklch(65.372% 0.1269 258.89);
+  --chart-2: oklch(58.39% 0.16749 258.54);
+  --chart-3: oklch(51.873% 0.20673 259.23);
+  --chart-4: oklch(54.082% 0.2319 260.87);
+  --chart-5: oklch(34.804% 0.18784 260.49);
+  --sidebar: oklch(0.21 0.006 285.885);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.546 0.245 262.881);
+  --sidebar-primary-foreground: oklch(0.379 0.146 265.522);
+  --sidebar-accent: oklch(0.274 0.006 286.033);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.488 0.243 264.376);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.dialog-dark-bg:is(.dark *) {
+  background-color: #101013;
+}
+
+/* Badge styles */
+
+.badge-success {
+  background-color: theme(colors.green.100);
+  color: theme(colors.green.800);
+  border-color: theme(colors.green.300);
+  border-width: 1px;
+}
+
+.badge-success:is(.dark *) {
+  background-color: color-mix(
+    in srgb,
+    theme(colors.green.900) 30%,
+    transparent
+  );
+  color: theme(colors.green.300);
+  border-color: theme(colors.green.900);
+}
+
+.badge-warning {
+  background-color: theme(colors.yellow.100);
+  color: theme(colors.yellow.800);
+  border-color: theme(colors.yellow.300);
+  border-width: 1px;
+}
+
+.badge-warning:is(.dark *) {
+  background-color: color-mix(
+    in srgb,
+    theme(colors.yellow.900) 30%,
+    transparent
+  );
+  color: theme(colors.yellow.300);
+  border-color: theme(colors.yellow.900);
+}
+
+.badge-error {
+  background-color: theme(colors.red.100);
+  border-color: theme(colors.red.300);
+  border-width: 1px;
+  color: theme(colors.red.800);
+}
+
+.badge-error:is(.dark *) {
+  background-color: color-mix(in srgb, theme(colors.red.900) 30%, transparent);
+  color: theme(colors.red.300);
+  border-color: theme(colors.red.900);
+}
+
+.badge-info {
+  background-color: theme(colors.blue.100);
+  color: theme(colors.blue.800);
+  border-color: theme(colors.blue.300);
+  border-width: 1px;
+}
+
+.badge-info:is(.dark *) {
+  background-color: color-mix(in srgb, theme(colors.blue.700) 30%, transparent);
+  color: theme(colors.blue.200);
+  border-color: theme(colors.blue.700);
+}
+
+.badge-secondary {
+  background-color: theme(colors.gray.100);
+  color: theme(colors.gray.800);
+  border-color: theme(colors.gray.300);
+  border-width: 1px;
+}
+
+.badge-secondary:is(.dark *) {
+  background-color: color-mix(in srgb, theme(colors.gray.500) 30%, transparent);
+  color: theme(colors.gray.200);
+  border-color: theme(colors.gray.500);
+}
+
+/* Button styles */
+.button-default {
+  @apply bg-primary text-primary-foreground;
+}
+.button-default:hover {
+  @apply bg-primary/90 text-primary-foreground;
+}
+.button-default:is(.dark *) {
+  @apply bg-primary/90 text-primary-foreground;
+}
+
+.button-default:is(.dark *):hover {
+  @apply bg-primary/80 text-primary-foreground;
+}
+
+.button-secondary {
+  @apply bg-secondary text-secondary-foreground border border-accent-foreground/10;
+}
+.button-secondary:hover {
+  @apply bg-accent-foreground/10 text-secondary-foreground;
+}
+
+.button-secondary:is(.dark *) {
+  @apply bg-secondary/90 text-secondary-foreground;
+}
+
+.button-secondary:is(.dark *):hover {
+  @apply bg-accent-foreground/10 text-secondary-foreground;
+}
+
+.button-link {
+  @apply text-primary bg-transparent underline p-0 mx-4 underline-offset-4 border-0;
+}
+.button-link:hover {
+  @apply text-primary/80;
+}
+.button-link:is(.dark *) {
+  @apply text-primary;
+}
+.button-link:is(.dark *):hover {
+  @apply text-primary/60;
+}
+
+.button-destructive {
+  @apply bg-red-600 text-background border-0;
+}
+.button-destructive:hover {
+  @apply bg-destructive/80;
+}
+.button-destructive:is(.dark *) {
+  @apply bg-red-500 text-foreground;
+}
+.button-destructive:is(.dark *):hover {
+  @apply bg-red-600;
+}
+
+.button-success {
+  @apply bg-green-600 text-background border-0;
+}
+.button-success:hover {
+  @apply bg-green-600/80;
+}
+.button-success:is(.dark *) {
+  @apply bg-green-500/80 text-foreground;
+}
+.button-success:is(.dark *):hover {
+  @apply bg-green-700;
+}
+
+.button-warning {
+  @apply bg-yellow-500/80 text-background border-0;
+}
+.button-warning:hover {
+  @apply bg-yellow-600/80;
+}
+.button-warning:is(.dark *) {
+  @apply bg-yellow-400/80 text-foreground;
+}
+.button-warning:is(.dark *):hover {
+  @apply bg-yellow-600;
+}
+
+.button-outline {
+  @apply bg-transparent border-1 border-black/30 shadow-none;
+}
+.button-outline:hover {
+  @apply bg-secondary/50 text-secondary-foreground;
+}
+.button-outline:is(.dark *) {
+  @apply text-secondary-foreground border-foreground/30;
+}
+.button-outline:is(.dark *):hover {
+  @apply bg-secondary/30 text-secondary-foreground;
+}
+
+.button-ghost {
+  @apply bg-transparent text-secondary-foreground border-0 shadow-none;
+}
+.button-ghost:hover {
+  @apply bg-secondary text-secondary-foreground;
+}
+.button-ghost:is(.dark *) {
+  @apply text-secondary-foreground border-0;
+}
+.button-ghost:is(.dark *):hover {
+  @apply bg-secondary text-secondary-foreground;
+}

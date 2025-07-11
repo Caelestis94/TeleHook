@@ -1,0 +1,56 @@
+services:
+  telehook:
+    build:
+      dockerfile: Dockerfile
+    container_name: telehook
+    image: telehook:latest
+    ports:
+      - "${BACKEND_PORT:-5001}:8080"
+      - "${FRONTEND_PORT:-3000}:3000"
+    environment:
+      # .NET API Environment
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+      
+      # Database
+      - ConnectionStrings__DatabaseConnectionString=Data Source=${DATABASE_PATH:-/data/telehook.db}
+      
+      # Security
+      - Security__ApiKey=${TELEHOOK_API_KEY}
+      
+      # Logging
+      - Serilog__MinimumLevel__Default=${LOG_LEVEL:-Information}
+      - Serilog__WriteTo__1__Args__retainedFileCountLimit=${LOG_RETENTION_DAYS:-7}
+      
+      # Next.js Environment
+      - BACKEND_URL=http://localhost:8080
+      - NEXT_PUBLIC_API_URL=http://localhost:${BACKEND_PORT:-5001}
+      - API_KEY=${TELEHOOK_API_KEY}
+      
+      # NextAuth
+      - NEXTAUTH_URL=${NEXTAUTH_URL:-http://localhost:3000}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      
+      # OIDC (optional)
+      - OIDC_WELL_KNOWN_URL=${OIDC_WELL_KNOWN_URL}
+      - OIDC_CLIENT_ID=${OIDC_CLIENT_ID}
+      - OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}
+      
+      - NODE_ENV=production
+      
+    volumes:
+      - telehook-data:/data
+      - telehook-logs:/app/logs
+    restart: unless-stopped
+    networks:
+      - telehook-network
+
+volumes:
+  telehook-data:
+    driver: local
+  telehook-logs:
+    driver: local
+
+networks:
+  telehook-network:
+    driver: bridge

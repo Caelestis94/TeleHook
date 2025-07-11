@@ -1,0 +1,22 @@
+# Web
+node_modules/
+.next/
+*.tsbuildinfo
+
+
+# Api
+appsettings.Development.json
+*.DotSettings.user
+.idea/
+bin/
+obj/
+/apps/api/TeleHook.Api/Logs/
+
+# Project
+docs/
+.env
+.claude/
+Database/
+*.log
+*.db
+*.sqlite
