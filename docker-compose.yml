@@ -1,9 +1,7 @@
 services:
   telehook:
-    build:
-      dockerfile: Dockerfile
     container_name: telehook
-    image: telehook:latest
+    image: ghcr.io/caelestis94/telehook/telehook:latest
     ports:
       - "${BACKEND_PORT:-5001}:8080"
       - "${FRONTEND_PORT:-3000}:3000"
@@ -24,8 +22,7 @@ services:
       - Serilog__WriteTo__1__Args__retainedFileCountLimit=${LOG_RETENTION_DAYS:-7}
       
       # Next.js Environment
-      - BACKEND_URL=http://localhost:8080
-      - NEXT_PUBLIC_API_URL=http://localhost:${BACKEND_PORT:-5001}
+      - BACKEND_URL=${BACKEND_URL:-http://localhost:8080}
       - API_KEY=${TELEHOOK_API_KEY}
       
       # NextAuth
@@ -36,6 +33,7 @@ services:
       - OIDC_WELL_KNOWN_URL=${OIDC_WELL_KNOWN_URL}
       - OIDC_CLIENT_ID=${OIDC_CLIENT_ID}
       - OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}
+      - OIDC_PROVIDER_NAME=${OIDC_PROVIDER_NAME}
       
       - NODE_ENV=production
       

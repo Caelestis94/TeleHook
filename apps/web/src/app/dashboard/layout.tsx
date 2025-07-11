@@ -95,7 +95,7 @@ export default function DashboardLayout({
         {/* Footer */}
         <footer className="border-t px-4 lg:px-6 py-3 bg-sidebar mt-auto">
           <div className="flex items-center justify-between text-sm">
-            <span>v1.0 - Commit 393822</span>
+            <span>v0.9.1</span>
           </div>
         </footer>
       </div>
