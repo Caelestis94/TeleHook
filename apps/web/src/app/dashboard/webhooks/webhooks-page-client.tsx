@@ -12,6 +12,7 @@ import { ConfirmationDialog } from "@/components/confirmation-dialog";
 import { useWebhooks, useBots } from "@/hooks/queries";
 import { useDeleteWebhook, useTestWebhook } from "@/hooks/mutations";
 import { handleError } from "@/lib/error-handling";
+import { Separator } from "@/components/ui/separator";
 
 export function WebhooksPageClient() {
   const router = useRouter();
@@ -91,7 +92,6 @@ export function WebhooksPageClient() {
     }
   };
 
-  // Simplified refresh - just refetch the queries
   const handleRefresh = () => {
     refetchWebhooks();
   };
@@ -127,7 +127,7 @@ export function WebhooksPageClient() {
               <Info className="w-5 h-5 text-green-600 dark:text-green-400" />
               <span>Webhook Endpoints</span>
             </CardTitle>
-            <hr />
+            <Separator />
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 md:grid-cols-2">
