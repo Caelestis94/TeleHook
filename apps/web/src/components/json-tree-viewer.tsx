@@ -3,8 +3,8 @@
 import React from "react";
 import JsonView from "@uiw/react-json-view";
 import { useTheme } from "next-themes";
-import { githubDarkTheme } from "@uiw/react-json-view/githubDark";
 import { githubLightTheme } from "@uiw/react-json-view/githubLight";
+import { nordTheme } from "@uiw/react-json-view/nord";
 
 interface JsonTreeViewerProps {
   data: object;
@@ -22,9 +22,10 @@ export function JsonTreeViewer({
   const { theme } = useTheme();
 
   // transparent background on both themes
-  githubDarkTheme.backgroundColor = "transparent";
   githubLightTheme.backgroundColor = "transparent";
-  const jsonViewTheme = theme === "dark" ? githubDarkTheme : githubLightTheme;
+  nordTheme.backgroundColor = "transparent";
+
+  const jsonViewTheme = theme === "dark" ? nordTheme : githubLightTheme;
 
   return (
     <div className={`relative ${className || ""}`}>
