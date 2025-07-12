@@ -25,6 +25,7 @@ body {
   min-height: -webkit-fill-available;
 }
 
+/* Fix for input[type="date"] on webkit*/
 input[type="date"] {
   max-width: 100%;
   width: 100%;
@@ -34,6 +35,7 @@ input[type="date"] {
   -webkit-appearance: none;
   padding-right: 0.5rem;
 }
+
 /* Additional mobile viewport units support */
 @supports (height: 100dvh) {
   html,
@@ -238,112 +240,4 @@ input[type="date"] {
   background-color: color-mix(in srgb, theme(colors.gray.500) 30%, transparent);
   color: theme(colors.gray.200);
   border-color: theme(colors.gray.500);
-}
-
-/* Button styles */
-.button-default {
-  @apply bg-primary text-primary-foreground;
-}
-.button-default:hover {
-  @apply bg-primary/90 text-primary-foreground;
-}
-.button-default:is(.dark *) {
-  @apply bg-primary/90 text-primary-foreground;
-}
-
-.button-default:is(.dark *):hover {
-  @apply bg-primary/80 text-primary-foreground;
-}
-
-.button-secondary {
-  @apply bg-secondary text-secondary-foreground border border-accent-foreground/10;
-}
-.button-secondary:hover {
-  @apply bg-accent-foreground/10 text-secondary-foreground;
-}
-
-.button-secondary:is(.dark *) {
-  @apply bg-secondary/90 text-secondary-foreground;
-}
-
-.button-secondary:is(.dark *):hover {
-  @apply bg-accent-foreground/10 text-secondary-foreground;
-}
-
-.button-link {
-  @apply text-primary bg-transparent underline p-0 mx-4 underline-offset-4 border-0;
-}
-.button-link:hover {
-  @apply text-primary/80;
-}
-.button-link:is(.dark *) {
-  @apply text-primary;
-}
-.button-link:is(.dark *):hover {
-  @apply text-primary/60;
-}
-
-.button-destructive {
-  @apply bg-red-600 text-background border-0;
-}
-.button-destructive:hover {
-  @apply bg-destructive/80;
-}
-.button-destructive:is(.dark *) {
-  @apply bg-red-500 text-foreground;
-}
-.button-destructive:is(.dark *):hover {
-  @apply bg-red-600;
-}
-
-.button-success {
-  @apply bg-green-600 text-background border-0;
-}
-.button-success:hover {
-  @apply bg-green-600/80;
-}
-.button-success:is(.dark *) {
-  @apply bg-green-500/80 text-foreground;
-}
-.button-success:is(.dark *):hover {
-  @apply bg-green-700;
-}
-
-.button-warning {
-  @apply bg-yellow-500/80 text-background border-0;
-}
-.button-warning:hover {
-  @apply bg-yellow-600/80;
-}
-.button-warning:is(.dark *) {
-  @apply bg-yellow-400/80 text-foreground;
-}
-.button-warning:is(.dark *):hover {
-  @apply bg-yellow-600;
-}
-
-.button-outline {
-  @apply bg-transparent border-1 border-black/30 shadow-none;
-}
-.button-outline:hover {
-  @apply bg-secondary/50 text-secondary-foreground;
-}
-.button-outline:is(.dark *) {
-  @apply text-secondary-foreground border-foreground/30;
-}
-.button-outline:is(.dark *):hover {
-  @apply bg-secondary/30 text-secondary-foreground;
-}
-
-.button-ghost {
-  @apply bg-transparent text-secondary-foreground border-0 shadow-none;
-}
-.button-ghost:hover {
-  @apply bg-secondary text-secondary-foreground;
-}
-.button-ghost:is(.dark *) {
-  @apply text-secondary-foreground border-0;
-}
-.button-ghost:is(.dark *):hover {
-  @apply bg-secondary text-secondary-foreground;
 }
