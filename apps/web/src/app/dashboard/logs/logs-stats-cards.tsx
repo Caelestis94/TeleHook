@@ -2,6 +2,8 @@ import { StatCardSkeletons } from "@/components/stat-card-skeletons";
 import { CheckCircle, Clock, AlertCircle, Calendar } from "lucide-react";
 import type { WebhookLog } from "@/types/log";
 import { StatCard } from "@/components/stat-card";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { cn } from "@/lib/utils";
 
 interface LogsStatsCardsProps {
   logs: WebhookLog[];
@@ -18,6 +20,8 @@ export function LogsStatsCards({
 
   const successfulLogs = logs.filter((log) => log.responseStatusCode === 200);
   const failedLogs = logs.filter((log) => log.responseStatusCode !== 200);
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isTablet = useMediaQuery("(max-width: 1350px)");
 
   const successRate =
     logs.length > 0
@@ -63,7 +67,12 @@ export function LogsStatsCards({
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div
+      className={cn(
+        "grid gap-4",
+        isMobile ? "grid-cols-1" : isTablet ? "grid-cols-2" : "grid-cols-4"
+      )}
+    >
       {stats.map((stat) => (
         <StatCard
           key={stat.title}
