@@ -12,21 +12,18 @@ interface RenderTemplateResponse {
   errors?: string[];
 }
 
-const renderTemplate = async (data: RenderTemplateRequest): Promise<string> => {
+const renderTemplate = async (data: RenderTemplateRequest): Promise<RenderTemplateResponse> => {
   const response = await fetch("/api/templates/render", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
   
+  // Let handleApiResponse throw for actual HTTP errors (4xx, 5xx)
   const result: RenderTemplateResponse = await handleApiResponse(response);
   
-  if (!result.success) {
-    const errorMessage = result.errors?.join(", ") || "Failed to render template";
-    throw new Error(errorMessage);
-  }
-  
-  return result.rendered;
+  // Return the result as-is, let the component handle success:false
+  return result;
 };
 
 export const useRenderTemplate = () => {

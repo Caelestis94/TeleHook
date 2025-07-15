@@ -19,7 +19,7 @@ export function WebhookTemplatePreview({
   parseMode = "MarkdownV2",
 }: TemplatePreviewProps) {
   const [renderedOutput, setRenderedOutput] = useState<string>("");
-  const [warnings, setWarnings] = useState<string[]>([]);
+  const [parseErrors, setParseErrors] = useState<string[]>([]);
   
   const {
     mutate: renderTemplate,
@@ -28,13 +28,17 @@ export function WebhookTemplatePreview({
   } = useRenderTemplate();
 
   const handleRender = () => {
-    setWarnings([]);
+    setParseErrors([]);
     
     renderTemplate(
       { template, sampleData },
       {
         onSuccess: (result) => {
-          setRenderedOutput(result);
+          if (result.success) {
+            setRenderedOutput(result.rendered);
+          } else {
+            setParseErrors(result.errors || ["Failed to render template"]);
+          }
         },
         onError: () => {
           toast.error(
@@ -64,13 +68,13 @@ export function WebhookTemplatePreview({
         </Alert>
       )}
 
-      {warnings.length > 0 && (
-        <Alert>
+      {parseErrors.length > 0 && (
+        <Alert variant="destructive">
           <AlertDescription>
-            <strong>Warnings:</strong>
+            <strong>Template Parsing Errors:</strong>
             <ul className="mt-1 ml-4 list-disc">
-              {warnings.map((warning, index) => (
-                <li key={index}>{warning}</li>
+              {parseErrors.map((error, index) => (
+                <li key={index}>{error}</li>
               ))}
             </ul>
           </AlertDescription>
