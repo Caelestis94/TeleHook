@@ -14,14 +14,15 @@ export function LogsStatsCards({
   logs,
   isLoading = false,
 }: LogsStatsCardsProps) {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isTablet = useMediaQuery("(max-width: 1350px)");
+
   if (isLoading) {
     return <StatCardSkeletons count={4} />;
   }
 
   const successfulLogs = logs.filter((log) => log.responseStatusCode === 200);
   const failedLogs = logs.filter((log) => log.responseStatusCode !== 200);
-  const isMobile = useMediaQuery("(max-width: 768px)");
-  const isTablet = useMediaQuery("(max-width: 1350px)");
 
   const successRate =
     logs.length > 0
