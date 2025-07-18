@@ -39,12 +39,12 @@ public static class ConfigurationExtensions
         {
             using var scope = builder.Services.BuildServiceProvider().CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-            
-            if (context.Database.CanConnect() && 
+
+            if (context.Database.CanConnect() &&
                 context.Model.FindEntityType(typeof(AppSetting)) != null)
             {
                 var dbSettings = context.AppSettings.FirstOrDefault(e => e.Id == 1);
-            
+
                 if (dbSettings != null)
                 {
                     settings.LogLevel = dbSettings.LogLevel;
@@ -87,7 +87,7 @@ public static class ConfigurationExtensions
             var level = ParseLogLevel(appSettings.LogLevel);
             configuration.MinimumLevel.Is(level);
         });
-        
+
         return host;
     }
 
@@ -101,9 +101,9 @@ public static class ConfigurationExtensions
         return new ForwardedHeadersOptions
         {
             ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto,
-            KnownProxies = { 
+            KnownProxies = {
                 IPAddress.Parse("127.0.0.1"),
-                IPAddress.Parse("::1") 
+                IPAddress.Parse("::1")
             }
         };
     }

@@ -43,7 +43,7 @@ public class UserManagementService : IUserManagementService
         {
             throw new ConflictException("An initial user already exists. Setup is not required.");
         }
-        
+
         _logger.LogDebug("Creating admin user with email '{Email}' and username '{Username}'",
             createUserDto.Email, createUserDto.Username);
 
@@ -73,7 +73,7 @@ public class UserManagementService : IUserManagementService
         await _unitOfWork.SaveChangesAsync();
 
         newUser.PasswordHash = string.Empty;
-        
+
         _logger.LogInformation("Admin user created with email '{Email}' and username '{Username}'",
             newUser.Email, newUser.Username);
 
@@ -139,7 +139,7 @@ public class UserManagementService : IUserManagementService
         }
 
         _logger.LogDebug("Updating user with ID '{UserId}'", userId);
-        
+
         var user = await _unitOfWork.Users.GetByIdAsync(userId);
         if (user == null)
         {
@@ -171,7 +171,7 @@ public class UserManagementService : IUserManagementService
         await _unitOfWork.SaveChangesAsync();
 
         user.PasswordHash = string.Empty;
-        
+
         _logger.LogInformation("User with ID '{UserId}' updated successfully", userId);
 
         return user;
@@ -180,7 +180,7 @@ public class UserManagementService : IUserManagementService
     public async Task<User> OidcSignInAsync(OidcSignInDto oidcSignInRequest)
     {
         _logger.LogDebug("Processing OIDC signin request for email '{Email}'", oidcSignInRequest.Email);
-        
+
         var validationResult = await _validationService.ValidateAsync(oidcSignInRequest);
         if (!validationResult.IsValid)
         {
@@ -199,7 +199,7 @@ public class UserManagementService : IUserManagementService
             {
                 _logger.LogDebug("Creating initial admin user for OIDC signin with email '{Email}'",
                     oidcSignInRequest.Email);
-                
+
                 var newUser = new User
                 {
                     Email = oidcSignInRequest.Email,

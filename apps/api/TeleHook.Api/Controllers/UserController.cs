@@ -32,10 +32,10 @@ public class UserController : ControllerBase
     public async Task<ActionResult<User>> Post([FromBody] CreateUserDto createUserRequest)
     {
         var newUser = await _userManagementService.CreateAdminUserAsync(createUserRequest);
-       
+
         return Created($"/api/user/{newUser.Id}", newUser);
     }
-    
+
     [HttpPost]
     [RequireApiKey]
     [Route("signin")]
@@ -53,13 +53,13 @@ public class UserController : ControllerBase
         var user = await _userManagementService.GetUserByIdAsync(id);
         return Ok(user);
     }
-    
+
     [HttpPut]
     [RequireApiKey]
     [Route("{id}")]
     public async Task<ActionResult<User>> Put(int id, UpdateUserDto updateUserRequest)
     {
-        var updatedUser = await _userManagementService.UpdateUserAsync(updateUserRequest,id);
+        var updatedUser = await _userManagementService.UpdateUserAsync(updateUserRequest, id);
         return Ok(updatedUser);
     }
 

@@ -9,7 +9,9 @@ export async function GET(request: NextRequest) {
 
   const url = new URL(request.url);
   const queryParams = url.searchParams.toString();
-  const backendUrl = `${BACKEND_URL}/api/webhooks/logs${queryParams ? `?${queryParams}` : ''}`;
+  const backendUrl = `${BACKEND_URL}/api/webhooks/logs${
+    queryParams ? `?${queryParams}` : ""
+  }`;
 
   const res = await fetch(backendUrl, {
     headers: {

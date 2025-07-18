@@ -49,7 +49,7 @@ public class WebhookLoggingService : IWebhookLoggingService
                 .Where(h => !IsSensitiveHeader(h.Key))
                 .ToDictionary(h => h.Key, h => h.Value.ToString());
             var headersJson = JsonSerializer.Serialize(headers);
-            
+
             var sanitizedUrl = SanitizeUrl(request.Path, request.QueryString);
 
             var log = new WebhookLog
@@ -62,7 +62,7 @@ public class WebhookLoggingService : IWebhookLoggingService
                 RequestBody = requestBody,
                 ResponseStatusCode = 0,
                 ProcessingTimeMs = 0,
-                PayloadValidated = true, 
+                PayloadValidated = true,
                 TelegramSent = false,
                 CreatedAt = DateTime.UtcNow
             };
@@ -147,7 +147,7 @@ public class WebhookLoggingService : IWebhookLoggingService
             _logger.LogDebug("Completing request logging for '{RequestId}' with status code {StatusCode}",
                 requestId, statusCode);
             await _unitOfWork.BeginTransactionAsync();
-            
+
             if (_pendingLogs.TryGetValue(requestId, out var log))
             {
                 log.ResponseStatusCode = statusCode;
@@ -160,7 +160,7 @@ public class WebhookLoggingService : IWebhookLoggingService
                     await _unitOfWork.WebhookLogs.AddAsync(log);
                     await _unitOfWork.SaveChangesAsync();
                 }
-                
+
                 await _webhookStatService.UpdateStatsAsync(
                     log.WebhookId,
                     statusCode,
@@ -215,7 +215,7 @@ public class WebhookLoggingService : IWebhookLoggingService
             }
         }
 
-        var sanitizedQueryString = string.Join("&", 
+        var sanitizedQueryString = string.Join("&",
             sanitizedQuery.Select(kvp => $"{kvp.Key}={kvp.Value}"));
 
         return $"{path}?{sanitizedQueryString}";

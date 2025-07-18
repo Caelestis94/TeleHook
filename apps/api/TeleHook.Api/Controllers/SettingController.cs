@@ -42,7 +42,7 @@ public class SettingController : ControllerBase
     public async Task<ActionResult<NotificationTestResult>> TestNotification()
     {
         var result = await _settingManagementService.TestNotificationAsync();
-        
+
         return Ok(result);
     }
 }

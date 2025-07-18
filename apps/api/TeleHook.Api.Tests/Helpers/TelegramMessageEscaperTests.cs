@@ -91,7 +91,7 @@ public class TelegramMessageEscaperTests
         Assert.Contains("'guest'", result);
         Assert.Contains("\"private\"", result);
     }
-    
+
     [Fact]
     public void EscapeHtml_WithPreCodeBlock_ShouldEscapeHtmlCharacters()
     {

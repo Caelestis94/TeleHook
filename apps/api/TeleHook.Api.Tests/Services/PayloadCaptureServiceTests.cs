@@ -74,7 +74,7 @@ public class PayloadCaptureServiceTests
 
         // Assert
         Assert.Equal(SessionOperationResult.Success, result);
-        
+
         var session = _service.GetSession(sessionId);
         Assert.NotNull(session);
         Assert.True(session.IsCompleted);
@@ -102,7 +102,7 @@ public class PayloadCaptureServiceTests
         var userId = 123;
         var payload = new { message = "test payload" };
         var sessionId = _service.CreateSession(userId);
-        
+
         // Manually expire the session
         var session = _service.GetSession(sessionId);
         session!.ExpiresAt = DateTime.UtcNow.AddMinutes(-1);
@@ -112,7 +112,7 @@ public class PayloadCaptureServiceTests
 
         // Assert
         Assert.Equal(SessionOperationResult.SessionExpired, result);
-        
+
         // Session should be removed
         var removedSession = _service.GetSession(sessionId);
         Assert.Null(removedSession);
@@ -135,7 +135,7 @@ public class PayloadCaptureServiceTests
 
         // Assert
         Assert.Equal(SessionOperationResult.SessionAlreadyCompleted, result);
-        
+
         // Verify original payload is preserved
         var session = _service.GetSession(sessionId);
         Assert.NotNull(session);
@@ -154,7 +154,7 @@ public class PayloadCaptureServiceTests
 
         // Assert
         Assert.Equal(SessionOperationResult.SessionCancelled, result);
-        
+
         // Session should be removed
         var session = _service.GetSession(sessionId);
         Assert.Null(session);
@@ -187,7 +187,7 @@ public class PayloadCaptureServiceTests
 
         // Assert
         Assert.Equal(SessionOperationResult.SessionAlreadyCompleted, result);
-        
+
         // Session should still exist
         var session = _service.GetSession(sessionId);
         Assert.NotNull(session);
@@ -206,7 +206,7 @@ public class PayloadCaptureServiceTests
 
         // Assert
         Assert.True(result);
-        
+
         var session = _service.GetSession(sessionId);
         Assert.Null(session);
     }
@@ -231,7 +231,7 @@ public class PayloadCaptureServiceTests
         var userId = 123;
         var validSessionId = _service.CreateSession(userId);
         var expiredSessionId = _service.CreateSession(userId);
-        
+
         // Manually expire one session
         var expiredSession = _service.GetSession(expiredSessionId);
         expiredSession!.ExpiresAt = DateTime.UtcNow.AddMinutes(-1);
@@ -251,7 +251,7 @@ public class PayloadCaptureServiceTests
         var userId = 123;
         var validSessionId = _service.CreateSession(userId);
         var expiredSessionId = _service.CreateSession(userId);
-        
+
         // Manually expire one session
         var expiredSession = _service.GetSession(expiredSessionId);
         expiredSession!.ExpiresAt = DateTime.UtcNow.AddMinutes(-1);
@@ -262,7 +262,7 @@ public class PayloadCaptureServiceTests
         // Assert
         var validSession = _service.GetSession(validSessionId);
         var removedSession = _service.GetSession(expiredSessionId);
-        
+
         Assert.NotNull(validSession);
         Assert.Null(removedSession);
     }
@@ -274,7 +274,7 @@ public class PayloadCaptureServiceTests
         var userId = 123;
         var sessionId = _service.CreateSession(userId);
         var payload = new { message = "test payload" };
-        
+
         var tasks = new List<Task<SessionOperationResult>>();
 
         // Act - try to complete the same session multiple times concurrently
@@ -287,13 +287,13 @@ public class PayloadCaptureServiceTests
 
         // Assert
         var results = tasks.Select(t => t.Result).ToList();
-        
+
         // Only one should succeed
         Assert.Single(results.Where(r => r == SessionOperationResult.Success));
-        
+
         // Others should return SessionAlreadyCompleted
         Assert.Equal(9, results.Count(r => r == SessionOperationResult.SessionAlreadyCompleted));
-        
+
         // Session should be completed
         var session = _service.GetSession(sessionId);
         Assert.NotNull(session);

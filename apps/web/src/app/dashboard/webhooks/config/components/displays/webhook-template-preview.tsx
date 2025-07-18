@@ -20,7 +20,7 @@ export function WebhookTemplatePreview({
 }: TemplatePreviewProps) {
   const [renderedOutput, setRenderedOutput] = useState<string>("");
   const [parseErrors, setParseErrors] = useState<string[]>([]);
-  
+
   const {
     mutate: renderTemplate,
     isPending: isLoading,
@@ -29,7 +29,7 @@ export function WebhookTemplatePreview({
 
   const handleRender = () => {
     setParseErrors([]);
-    
+
     renderTemplate(
       { template, sampleData },
       {
@@ -63,7 +63,9 @@ export function WebhookTemplatePreview({
       {error && (
         <Alert variant="destructive">
           <AlertDescription>
-            {error instanceof Error ? error.message : "Failed to render template"}
+            {error instanceof Error
+              ? error.message
+              : "Failed to render template"}
           </AlertDescription>
         </Alert>
       )}

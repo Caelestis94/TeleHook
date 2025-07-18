@@ -30,7 +30,7 @@ input[type="date"] {
   max-width: 100%;
   width: 100%;
   min-width: 0;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   appearance: none;
   -webkit-appearance: none;
   padding-right: 0.5rem;

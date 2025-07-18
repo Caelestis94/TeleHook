@@ -4,6 +4,6 @@ namespace TeleHook.Api.DTO;
 
 public class SettingsUpdatedResponse
 {
-    public required AppSetting Setting  { get; set; }
+    public required AppSetting Setting { get; set; }
     public bool IsRestartRequired { get; set; }
 }

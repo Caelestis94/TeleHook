@@ -26,7 +26,7 @@ public class JsonToScribanConverter : IJsonToScribanConverter
     {
         if (data is JsonElement element)
             return element;
-            
+
         var json = JsonSerializer.Serialize(data);
         return JsonSerializer.Deserialize<JsonElement>(json);
     }

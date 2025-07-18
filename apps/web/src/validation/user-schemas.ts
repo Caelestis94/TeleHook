@@ -107,4 +107,3 @@ export const UserUpdateValidationSchema = z
       path: ["confirmPassword"],
     }
   );
-

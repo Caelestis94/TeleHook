@@ -120,14 +120,18 @@ const handler = NextAuth({
               displayName: user.displayName,
             };
           }
-          
+
           // Log failed authentication attempt
           const clientIP = await getClientIP();
-          console.log(`[SECURITY] Failed login attempt from ${clientIP} for email: ${credentials.email}`);
+          console.log(
+            `[SECURITY] Failed login attempt from ${clientIP} for email: ${credentials.email}`
+          );
           return null;
         } catch (error) {
           const clientIP = await getClientIP();
-          console.log(`[SECURITY] Authentication error from ${clientIP} for email: ${credentials.email} - ${error}`);
+          console.log(
+            `[SECURITY] Authentication error from ${clientIP} for email: ${credentials.email} - ${error}`
+          );
           return null;
         }
       },
@@ -196,7 +200,11 @@ const handler = NextAuth({
           });
           if (!response.ok) {
             const clientIP = await getClientIP();
-            console.log(`[SECURITY] Failed OIDC backend sync from ${clientIP} for email: ${user.email} - ${await response.text()}`);
+            console.log(
+              `[SECURITY] Failed OIDC backend sync from ${clientIP} for email: ${
+                user.email
+              } - ${await response.text()}`
+            );
             return false;
           }
           const backendUser: TeleHookUser = await response.json();
@@ -205,7 +213,9 @@ const handler = NextAuth({
           return true;
         } catch (error) {
           const clientIP = await getClientIP();
-          console.log(`[SECURITY] OIDC sign-in error from ${clientIP} for email: ${user.email} - ${error}`);
+          console.log(
+            `[SECURITY] OIDC sign-in error from ${clientIP} for email: ${user.email} - ${error}`
+          );
           return false;
         }
       }
@@ -225,12 +235,21 @@ const handler = NextAuth({
   events: {
     async signOut({ token }) {
       const clientIP = await getClientIP();
-      console.log(`[SECURITY] User signed out from ${clientIP} - ${token?.email || 'unknown'}`);
+      console.log(
+        `[SECURITY] User signed out from ${clientIP} - ${
+          token?.email || "unknown"
+        }`
+      );
     },
     async signIn({ user, account, isNewUser }) {
       const clientIP = await getClientIP();
-      const provider = account?.provider === "oidc" ? OIDC_PROVIDER_NAME : account?.provider;
-      console.log(`[SECURITY] Successful login from ${clientIP} - ${user.email} via ${provider}${isNewUser ? ' (new user)' : ''}`);
+      const provider =
+        account?.provider === "oidc" ? OIDC_PROVIDER_NAME : account?.provider;
+      console.log(
+        `[SECURITY] Successful login from ${clientIP} - ${
+          user.email
+        } via ${provider}${isNewUser ? " (new user)" : ""}`
+      );
     },
   },
 

@@ -15,8 +15,5 @@ export const BotValidationSchema = z.object({
   chatId: z
     .string()
     .min(1, "Chat ID is required")
-    .regex(
-      /^-?\d+$/,
-      "Chat ID must be a numeric value"
-    ),
+    .regex(/^-?\d+$/, "Chat ID must be a numeric value"),
 });

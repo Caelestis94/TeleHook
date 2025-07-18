@@ -7,7 +7,6 @@ import {
 } from "@/types/capture-session";
 import { ApiError } from "@/types/api-error";
 
-
 const startCapture = async (
   data: StartCaptureSessionRequest
 ): Promise<CaptureSession> => {

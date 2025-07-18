@@ -32,8 +32,8 @@ public class WebhookController : ControllerBase
     [RequireApiKey]
     public async Task<ActionResult<IEnumerable<Webhook>>> Get()
     {
-       var webhooks = await _webhookManagementService.GetAllWebhooksAsync();
-       return Ok(webhooks);
+        var webhooks = await _webhookManagementService.GetAllWebhooksAsync();
+        return Ok(webhooks);
     }
 
     [HttpGet]
@@ -66,7 +66,7 @@ public class WebhookController : ControllerBase
     [HttpDelete]
     [RequireApiKey]
     [Route("{id}")]
-    public async Task<ActionResult> Delete(int id)                                                                                                                                                                                                                                            
+    public async Task<ActionResult> Delete(int id)
     {
         await _webhookManagementService.DeleteWebhookAsync(id);
         return NoContent();

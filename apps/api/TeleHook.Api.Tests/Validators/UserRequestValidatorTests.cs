@@ -593,7 +593,7 @@ public class UserRequestValidatorTests
         #endregion
 
         #region Password Validation Tests
-        
+
 
         [Theory]
         [InlineData("1234567")] // 7 characters

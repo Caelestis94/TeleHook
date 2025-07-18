@@ -43,27 +43,27 @@ public class WebhookIntegrationTests : IDisposable
             EnableWebhookLogging = true,
             WebhookLogRetentionDays = 30,
             StatsDaysInterval = 30,
-            LogLevel = "Debug" 
+            LogLevel = "Debug"
         };
-        
+
         // Create a service collection with real services
         var services = new ServiceCollection();
-        
+
         // Add logging
         services.AddLogging(builder => builder.AddConsole().SetMinimumLevel(LogLevel.Debug));
-        
+
         // Add helper services
         services.AddTransient<TelegramMessageEscaper>();
         services.AddTransient<ITelegramMessageEscaper, TelegramMessageEscaper>();
         services.AddTransient<IJsonToScribanConverter, JsonToScribanConverter>();
-        
+
         // Add real services with their interfaces
         services.AddTransient<IMessageFormattingService, MessageFormattingService>();
         services.AddTransient<IValidationService, ValidationService>();
         services.AddTransient<IWebhookStatService, WebhookStatService>();
         services.AddTransient<IWebhookProcessingService, WebhookProcessingService>();
         services.AddTransient<IWebhookManagementService, WebhookManagementService>();
-        
+
         // Create mocks for external dependencies
         _mockUnitOfWork = new Mock<IUnitOfWork>();
         _mockWebhookRepository = new Mock<IWebhookRepository>();
@@ -71,7 +71,7 @@ public class WebhookIntegrationTests : IDisposable
         _mockLoggingService = new Mock<IWebhookLoggingService>();
         _mockTemplateParsingService = new Mock<ITemplateParsingService>();
         _mockFailureNotificationService = new Mock<IFailureNotificationService>();
-        
+
         // Register mocks as singletons
         services.AddSingleton(_mockUnitOfWork.Object);
         services.AddSingleton(_mockTelegramService.Object);
@@ -81,10 +81,10 @@ public class WebhookIntegrationTests : IDisposable
         services.AddSingleton(appSettings);
         // Build service provider
         _serviceProvider = services.BuildServiceProvider();
-        
+
         // Setup unit of work to return mocked repository
         _mockUnitOfWork.Setup(x => x.Webhooks).Returns(_mockWebhookRepository.Object);
-        
+
         // Create controller with real and mocked services
         _controller = new WebhookController(
             _mockUnitOfWork.Object,
@@ -126,13 +126,13 @@ public class WebhookIntegrationTests : IDisposable
         // Setup repository mock
         _mockWebhookRepository.Setup(x => x.GetByUuidWithRelationsAsync(uuid))
             .ReturnsAsync(webhook);
-        _mockWebhookRepository.Setup(x => x.GetAllAsync()).ReturnsAsync(new List<Webhook>() {webhook});
-        
+        _mockWebhookRepository.Setup(x => x.GetAllAsync()).ReturnsAsync(new List<Webhook>() { webhook });
+
         // Setup template parsing service mock
         var parsedTemplate = Template.Parse(webhook.MessageTemplate);
         _mockTemplateParsingService.Setup(x => x.GetTemplate(webhook.Id))
             .Returns(parsedTemplate);
-        
+
         // Setup external service mocks
         _mockLoggingService.Setup(x => x.StartRequestAsync(webhook.Id, It.IsAny<HttpRequest>()))
             .ReturnsAsync(requestId);
@@ -162,11 +162,11 @@ public class WebhookIntegrationTests : IDisposable
         Assert.IsType<ObjectResult>(result);
         var okResult = (ObjectResult)result;
         Assert.Equal(200, okResult.StatusCode);
-        
+
         // Check that the result contains the expected message structure
         var resultValue = okResult.Value;
         Assert.NotNull(resultValue);
-        
+
         // The controller returns an anonymous object with a message property
         var messageProperty = resultValue.GetType().GetProperty("message");
         Assert.NotNull(messageProperty);

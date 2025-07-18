@@ -27,7 +27,7 @@ public class TemplateController : ControllerBase
         }
 
         var result = _templateService.RenderTemplate(renderTemplateRequest.Template, renderTemplateRequest.SampleData);
-        
+
         return Ok(result);
     }
 }

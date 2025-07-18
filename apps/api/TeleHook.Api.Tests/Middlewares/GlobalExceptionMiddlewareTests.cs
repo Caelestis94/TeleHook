@@ -38,7 +38,7 @@ public class GlobalExceptionMiddlewareTests
 
         // Assert
         Assert.Equal((int)HttpStatusCode.BadRequest, _httpContext.Response.StatusCode);
-        
+
         _httpContext.Response.Body.Seek(0, SeekOrigin.Begin);
         var responseBody = await new StreamReader(_httpContext.Response.Body).ReadToEndAsync();
         var response = JsonSerializer.Deserialize<ErrorResponse>(responseBody, new JsonSerializerOptions
@@ -67,7 +67,7 @@ public class GlobalExceptionMiddlewareTests
 
         // Assert
         Assert.Equal((int)HttpStatusCode.NotFound, _httpContext.Response.StatusCode);
-        
+
         _httpContext.Response.Body.Seek(0, SeekOrigin.Begin);
         var responseBody = await new StreamReader(_httpContext.Response.Body).ReadToEndAsync();
         var response = JsonSerializer.Deserialize<ErrorResponse>(responseBody, new JsonSerializerOptions
@@ -95,7 +95,7 @@ public class GlobalExceptionMiddlewareTests
 
         // Assert
         Assert.Equal((int)HttpStatusCode.Conflict, _httpContext.Response.StatusCode);
-        
+
         _httpContext.Response.Body.Seek(0, SeekOrigin.Begin);
         var responseBody = await new StreamReader(_httpContext.Response.Body).ReadToEndAsync();
         var response = JsonSerializer.Deserialize<ErrorResponse>(responseBody, new JsonSerializerOptions
@@ -124,7 +124,7 @@ public class GlobalExceptionMiddlewareTests
 
         // Assert
         Assert.Equal((int)HttpStatusCode.BadRequest, _httpContext.Response.StatusCode);
-        
+
         _httpContext.Response.Body.Seek(0, SeekOrigin.Begin);
         var responseBody = await new StreamReader(_httpContext.Response.Body).ReadToEndAsync();
         var response = JsonSerializer.Deserialize<ErrorResponse>(responseBody, new JsonSerializerOptions
@@ -153,7 +153,7 @@ public class GlobalExceptionMiddlewareTests
 
         // Assert
         Assert.Equal((int)HttpStatusCode.BadGateway, _httpContext.Response.StatusCode);
-        
+
         _httpContext.Response.Body.Seek(0, SeekOrigin.Begin);
         var responseBody = await new StreamReader(_httpContext.Response.Body).ReadToEndAsync();
         var response = JsonSerializer.Deserialize<ErrorResponse>(responseBody, new JsonSerializerOptions
@@ -183,7 +183,7 @@ public class GlobalExceptionMiddlewareTests
 
         // Assert
         Assert.Equal((int)HttpStatusCode.BadRequest, _httpContext.Response.StatusCode);
-        
+
         _httpContext.Response.Body.Seek(0, SeekOrigin.Begin);
         var responseBody = await new StreamReader(_httpContext.Response.Body).ReadToEndAsync();
         var response = JsonSerializer.Deserialize<ErrorResponse>(responseBody, new JsonSerializerOptions
@@ -212,7 +212,7 @@ public class GlobalExceptionMiddlewareTests
 
         // Assert
         Assert.Equal((int)HttpStatusCode.InternalServerError, _httpContext.Response.StatusCode);
-        
+
         _httpContext.Response.Body.Seek(0, SeekOrigin.Begin);
         var responseBody = await new StreamReader(_httpContext.Response.Body).ReadToEndAsync();
         var response = JsonSerializer.Deserialize<ErrorResponse>(responseBody, new JsonSerializerOptions
@@ -274,7 +274,7 @@ public class GlobalExceptionMiddlewareTests
 
         // Assert
         Assert.Equal((int)HttpStatusCode.InternalServerError, _httpContext.Response.StatusCode);
-        
+
         _httpContext.Response.Body.Seek(0, SeekOrigin.Begin);
         var responseBody = await new StreamReader(_httpContext.Response.Body).ReadToEndAsync();
         var response = JsonSerializer.Deserialize<ErrorResponse>(responseBody, new JsonSerializerOptions

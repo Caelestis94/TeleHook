@@ -29,7 +29,7 @@ public class WebhookCreateRequestValidator : AbstractValidator<CreateWebhookDto>
         RuleFor(x => x.PayloadSample)
             .NotEmpty()
             .WithMessage("PayloadSample is required");
-        
+
         RuleFor(x => x.MessageTemplate)
             .NotEmpty()
             .WithMessage("MessageTemplate is required")
@@ -68,7 +68,7 @@ public class WebhookUpdateRequestValidator : AbstractValidator<UpdateWebhookDto>
     public WebhookUpdateRequestValidator(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
-        
+
         RuleFor(x => x.Id)
             .NotEmpty()
             .WithMessage("Id is required")
@@ -119,7 +119,7 @@ public class WebhookUpdateRequestValidator : AbstractValidator<UpdateWebhookDto>
     {
         return await ValidatorHelpers.CheckEntityExistsAsync(_unitOfWork.Webhooks, id);
     }
-    
+
     private async Task<bool> BeUniqueNameForUpdateAsync(UpdateWebhookDto updateWebhookRequest, string name, CancellationToken cancellationToken)
     {
         return await ValidatorHelpers.CheckUniqueNameForUpdateAsync(_unitOfWork.Webhooks, name, updateWebhookRequest.Id);

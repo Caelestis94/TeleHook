@@ -53,4 +53,4 @@ export type OIDCProfile = {
   picture?: string;
   avatar_url?: string;
   [key: string]: unknown;
-}
+};

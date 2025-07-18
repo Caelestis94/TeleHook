@@ -121,11 +121,11 @@ public class OidcSignInRequestValidatorTests
     public void Should_Not_Have_Error_When_Username_Is_Null()
     {
         // Arrange
-        var request = new OidcSignInDto 
-        { 
-            Email = "user@example.com", 
+        var request = new OidcSignInDto
+        {
+            Email = "user@example.com",
             OidcId = "test-oidc-id",
-            Username = null 
+            Username = null
         };
 
         // Act & Assert
@@ -137,11 +137,11 @@ public class OidcSignInRequestValidatorTests
     public void Should_Not_Have_Error_When_Username_Is_Empty()
     {
         // Arrange
-        var request = new OidcSignInDto 
-        { 
-            Email = "user@example.com", 
+        var request = new OidcSignInDto
+        {
+            Email = "user@example.com",
             OidcId = "test-oidc-id",
-            Username = "" 
+            Username = ""
         };
 
         // Act & Assert
@@ -153,11 +153,11 @@ public class OidcSignInRequestValidatorTests
     public void Should_Have_Error_When_Username_Is_Too_Short()
     {
         // Arrange
-        var request = new OidcSignInDto 
-        { 
-            Email = "user@example.com", 
+        var request = new OidcSignInDto
+        {
+            Email = "user@example.com",
             OidcId = "test-oidc-id",
-            Username = "a" 
+            Username = "a"
         };
 
         // Act & Assert
@@ -174,11 +174,11 @@ public class OidcSignInRequestValidatorTests
     public void Should_Not_Have_Error_When_Username_Is_Valid(string validUsername)
     {
         // Arrange
-        var request = new OidcSignInDto 
-        { 
-            Email = "user@example.com", 
+        var request = new OidcSignInDto
+        {
+            Email = "user@example.com",
             OidcId = "test-oidc-id",
-            Username = validUsername 
+            Username = validUsername
         };
 
         // Act & Assert
@@ -194,11 +194,11 @@ public class OidcSignInRequestValidatorTests
     public void Should_Not_Have_Error_When_FirstName_Is_Null()
     {
         // Arrange
-        var request = new OidcSignInDto 
-        { 
-            Email = "user@example.com", 
+        var request = new OidcSignInDto
+        {
+            Email = "user@example.com",
             OidcId = "test-oidc-id",
-            FirstName = null 
+            FirstName = null
         };
 
         // Act & Assert
@@ -210,11 +210,11 @@ public class OidcSignInRequestValidatorTests
     public void Should_Not_Have_Error_When_FirstName_Is_Empty()
     {
         // Arrange
-        var request = new OidcSignInDto 
-        { 
-            Email = "user@example.com", 
+        var request = new OidcSignInDto
+        {
+            Email = "user@example.com",
             OidcId = "test-oidc-id",
-            FirstName = "" 
+            FirstName = ""
         };
 
         // Act & Assert
@@ -227,11 +227,11 @@ public class OidcSignInRequestValidatorTests
     {
         // Arrange
         var longFirstName = new string('a', 51); // 51 characters
-        var request = new OidcSignInDto 
-        { 
-            Email = "user@example.com", 
+        var request = new OidcSignInDto
+        {
+            Email = "user@example.com",
             OidcId = "test-oidc-id",
-            FirstName = longFirstName 
+            FirstName = longFirstName
         };
 
         // Act & Assert
@@ -248,11 +248,11 @@ public class OidcSignInRequestValidatorTests
     public void Should_Not_Have_Error_When_FirstName_Is_Valid(string validFirstName)
     {
         // Arrange
-        var request = new OidcSignInDto 
-        { 
-            Email = "user@example.com", 
+        var request = new OidcSignInDto
+        {
+            Email = "user@example.com",
             OidcId = "test-oidc-id",
-            FirstName = validFirstName 
+            FirstName = validFirstName
         };
 
         // Act & Assert
@@ -268,11 +268,11 @@ public class OidcSignInRequestValidatorTests
     public void Should_Not_Have_Error_When_LastName_Is_Null()
     {
         // Arrange
-        var request = new OidcSignInDto 
-        { 
-            Email = "user@example.com", 
+        var request = new OidcSignInDto
+        {
+            Email = "user@example.com",
             OidcId = "test-oidc-id",
-            LastName = null 
+            LastName = null
         };
 
         // Act & Assert
@@ -284,11 +284,11 @@ public class OidcSignInRequestValidatorTests
     public void Should_Not_Have_Error_When_LastName_Is_Empty()
     {
         // Arrange
-        var request = new OidcSignInDto 
-        { 
-            Email = "user@example.com", 
+        var request = new OidcSignInDto
+        {
+            Email = "user@example.com",
             OidcId = "test-oidc-id",
-            LastName = "" 
+            LastName = ""
         };
 
         // Act & Assert
@@ -301,11 +301,11 @@ public class OidcSignInRequestValidatorTests
     {
         // Arrange
         var longLastName = new string('b', 51); // 51 characters
-        var request = new OidcSignInDto 
-        { 
-            Email = "user@example.com", 
+        var request = new OidcSignInDto
+        {
+            Email = "user@example.com",
             OidcId = "test-oidc-id",
-            LastName = longLastName 
+            LastName = longLastName
         };
 
         // Act & Assert
@@ -322,11 +322,11 @@ public class OidcSignInRequestValidatorTests
     public void Should_Not_Have_Error_When_LastName_Is_Valid(string validLastName)
     {
         // Arrange
-        var request = new OidcSignInDto 
-        { 
-            Email = "user@example.com", 
+        var request = new OidcSignInDto
+        {
+            Email = "user@example.com",
             OidcId = "test-oidc-id",
-            LastName = validLastName 
+            LastName = validLastName
         };
 
         // Act & Assert

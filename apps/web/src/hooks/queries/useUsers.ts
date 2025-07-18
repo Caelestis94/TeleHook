@@ -7,7 +7,6 @@ const fetchUser = async (id: string): Promise<TeleHookUser> => {
   return handleApiResponse(response);
 };
 
-
 export const useUser = (id: string) => {
   return useQuery({
     queryKey: ["user", id],

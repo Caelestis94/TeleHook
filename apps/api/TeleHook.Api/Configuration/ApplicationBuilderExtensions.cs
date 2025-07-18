@@ -11,13 +11,13 @@ public static class ApplicationBuilderExtensions
     public static WebApplication ConfigureRequestPipeline(this WebApplication app)
     {
         app.UseCors("AllowAll");
-        
+
         // Configure forwarded headers if enabled
         if (app.Configuration.ShouldTrustForwardedHeaders())
         {
             app.UseForwardedHeaders(ConfigurationExtensions.GetForwardedHeadersOptions());
         }
-        
+
         app.UseSerilogRequestLogging(options =>
         {
             options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
@@ -53,7 +53,7 @@ public static class ApplicationBuilderExtensions
     public static async Task<WebApplication> InitializeDatabaseAsync(this WebApplication app, string connectionString)
     {
         var logger = Log.ForContext<Program>();
-        
+
         try
         {
             using var scope = app.Services.CreateScope();
@@ -84,7 +84,7 @@ public static class ApplicationBuilderExtensions
         using var scope = app.Services.CreateScope();
         var templateService = scope.ServiceProvider.GetRequiredService<ITemplateParsingService>();
         await templateService.InitializeAsync();
-        
+
         return app;
     }
 

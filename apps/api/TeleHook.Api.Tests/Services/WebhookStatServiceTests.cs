@@ -5,7 +5,6 @@ using TeleHook.Api.Exceptions;
 using TeleHook.Api.Models;
 using TeleHook.Api.Repositories.Interfaces;
 using TeleHook.Api.Services.Domain;
-using TeleHook.Api.Services.Infrastructure;
 using Xunit;
 
 namespace TeleHook.Api.Tests.Services;
@@ -27,15 +26,15 @@ public class WebhookStatServiceTests
             WebhookLogRetentionDays = 0,
             StatsDaysInterval = 30
         };
-        
-        
+
+
         _mockUnitOfWork = new Mock<IUnitOfWork>();
         _mockWebhookStatRepository = new Mock<IWebhookStatRepository>();
         _mockLogger = new Mock<ILogger<WebhookStatService>>();
 
         _mockUnitOfWork.Setup(x => x.WebhookStats).Returns(_mockWebhookStatRepository.Object);
 
-        _service = new WebhookStatService(_mockUnitOfWork.Object, _mockLogger.Object,appSetting);
+        _service = new WebhookStatService(_mockUnitOfWork.Object, _mockLogger.Object, appSetting);
     }
 
     [Fact]
@@ -230,21 +229,21 @@ public class WebhookStatServiceTests
 
         var stats = new List<WebhookStat>
         {
-            new() 
-            { 
-                Date = endDate, 
-                WebhookId = webhookId, 
-                TotalRequests = 10, 
-                SuccessfulRequests = 8, 
-                AvgProcessingTimeMs = 100 
+            new()
+            {
+                Date = endDate,
+                WebhookId = webhookId,
+                TotalRequests = 10,
+                SuccessfulRequests = 8,
+                AvgProcessingTimeMs = 100
             },
-            new() 
-            { 
-                Date = endDate.AddDays(-1), 
-                WebhookId = webhookId, 
-                TotalRequests = 5, 
-                SuccessfulRequests = 4, 
-                AvgProcessingTimeMs = 120 
+            new()
+            {
+                Date = endDate.AddDays(-1),
+                WebhookId = webhookId,
+                TotalRequests = 5,
+                SuccessfulRequests = 4,
+                AvgProcessingTimeMs = 120
             }
         };
 
@@ -297,8 +296,8 @@ public class WebhookStatServiceTests
                                   .ThrowsAsync(new Exception("Database error"));
 
         // Act
-var exception = await Assert.ThrowsAsync<InternalServerErrorException>(
-            () => _service.UpdateStatsAsync(1, 200, 100, true, true));
+        var exception = await Assert.ThrowsAsync<InternalServerErrorException>(
+                    () => _service.UpdateStatsAsync(1, 200, 100, true, true));
         // Assert
         _mockLogger.Verify(
             x => x.Log(

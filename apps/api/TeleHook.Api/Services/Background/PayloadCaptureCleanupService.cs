@@ -41,7 +41,7 @@ public class PayloadCaptureCleanupService : BackgroundService
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error during payload capture cleanup");
-                
+
                 try
                 {
                     await Task.Delay(_cleanupInterval, stoppingToken);

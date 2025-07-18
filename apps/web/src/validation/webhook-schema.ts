@@ -1,6 +1,5 @@
 import z from "zod";
 
-
 export const WebhookValidationSchema = z.object({
   name: z.string().min(1, "Name is required"),
   botId: z.number().min(1, "Bot is required"),

@@ -23,11 +23,11 @@ public class PayloadCaptureManagementService : IPayloadCaptureManagementService
     }
 
     private const string CaptureUrlFormat = "/api/payload/capture/{0}";
-    
+
     public async Task<CaptureSessionDto> CreateSessionAsync(int userId)
     {
         _logger.LogDebug("Creating capture session for user {UserId}", userId);
-        
+
         var user = await _unitOfWork.Users.GetByIdAsync(userId);
         if (user == null)
         {
@@ -36,7 +36,7 @@ public class PayloadCaptureManagementService : IPayloadCaptureManagementService
         }
 
         var sessionId = _payloadCaptureQueue.CreateSession(userId);
-        
+
         var session = _payloadCaptureQueue.GetSession(sessionId)!;
 
         _logger.LogInformation("Created session {SessionId}", sessionId);
@@ -59,7 +59,7 @@ public class PayloadCaptureManagementService : IPayloadCaptureManagementService
             _logger.LogWarning("Session {SessionId} not found", sessionId);
             throw new NotFoundException($"Session", sessionId);
         }
-        
+
         if (session.ExpiresAt < DateTime.UtcNow)
         {
             _logger.LogWarning("Session {SessionId} expired", sessionId);
@@ -85,8 +85,8 @@ public class PayloadCaptureManagementService : IPayloadCaptureManagementService
     {
         var result = _payloadCaptureQueue.CancelSession(sessionId);
         _logger.LogDebug("Cancelling session {SessionId}, result: {Result}", sessionId, result);
-        
-        return result switch 
+
+        return result switch
         {
             SessionOperationResult.SessionCancelled => Task.FromResult(new CaptureSessionDto
             {
@@ -109,7 +109,7 @@ public class PayloadCaptureManagementService : IPayloadCaptureManagementService
             _logger.LogWarning("Invalid payload for session {SessionId}", sessionId);
             throw new BadRequestException("Invalid payload format or size");
         }
-        
+
         var result = _payloadCaptureQueue.CompleteSession(sessionId, payload);
 
         switch (result)
@@ -130,7 +130,7 @@ public class PayloadCaptureManagementService : IPayloadCaptureManagementService
                 throw new InternalServerErrorException("Unexpected completion result");
         }
     }
-    
+
     private bool IsValidPayload(object payload)
     {
         if (payload == null)
@@ -139,7 +139,7 @@ public class PayloadCaptureManagementService : IPayloadCaptureManagementService
         try
         {
             var json = JsonSerializer.Serialize(payload);
-            
+
             // Check payload size (limit to 1MB)
             if (json.Length > 1024 * 1024)
             {

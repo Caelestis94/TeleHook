@@ -358,11 +358,11 @@ public class JsonToScribanConverterTests
         Assert.NotNull(result);
         Assert.Equal(42, result["smallInt"]);
         Assert.Equal(9876543210L, result["largeInt"]);
-        
+
         // Check that decimal values are properly converted
         Assert.IsType<decimal>(result["decimal"]);
         Assert.Equal(123.456m, result["decimal"]);
-        
+
         // Scientific notation should be handled as decimal
         Assert.IsType<decimal>(result["scientific"]);
     }
@@ -404,7 +404,7 @@ public class JsonToScribanConverterTests
 
         // Assert
         Assert.NotNull(result);
-        
+
         var webhookObj = result["webhook"] as ScriptObject;
         Assert.NotNull(webhookObj);
         Assert.Equal("Complex Event", webhookObj["name"]);

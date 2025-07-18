@@ -43,7 +43,7 @@ public class TelegramService : ITelegramService
 
         if (!result.IsSuccess)
         {
-            _logger.LogError("Telegram API error for webhook '{WebhookUUID}': {ErrorMessage}", 
+            _logger.LogError("Telegram API error for webhook '{WebhookUUID}': {ErrorMessage}",
                 webhook.Uuid, result.Error);
         }
 
@@ -98,10 +98,10 @@ public class TelegramService : ITelegramService
             _logger.LogError(
                 "Telegram API error for chat '{ChatId}'. Status: {StatusCode}, Error: {Error}",
                 chatId, response.StatusCode, body);
-            
+
             return TelegramResult.Failure(
-                $"Telegram API returned error: {body}", 
-                (int)response.StatusCode, 
+                $"Telegram API returned error: {body}",
+                (int)response.StatusCode,
                 body);
         }
         catch (HttpRequestException ex)
@@ -137,7 +137,7 @@ public class TelegramService : ITelegramService
         _logger.LogDebug("Testing Telegram bot connection for bot '{BotId}'", bot.Id);
 
         var url = $"https://api.telegram.org/bot{bot.BotToken}/getMe";
-        
+
         try
         {
             var response = await _httpClient.GetAsync(url);
@@ -148,10 +148,10 @@ public class TelegramService : ITelegramService
                 _logger.LogError(
                     "Telegram bot connection test failed for bot {BotId}. Status: {StatusCode}, Error: {Error}",
                     bot.Id, response.StatusCode, errorContent);
-                
+
                 return TelegramResult.Failure(
-                    $"Telegram bot connection test failed: {errorContent}", 
-                    (int)response.StatusCode, 
+                    $"Telegram bot connection test failed: {errorContent}",
+                    (int)response.StatusCode,
                     errorContent);
             }
 

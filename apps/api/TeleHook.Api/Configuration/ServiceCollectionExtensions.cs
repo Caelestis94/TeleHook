@@ -16,11 +16,11 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddDatabase(this IServiceCollection services, string connectionString)
     {
-        services.AddDbContext<AppDbContext>(options => 
+        services.AddDbContext<AppDbContext>(options =>
         {
             options.UseSqlite(connectionString);
         });
-        
+
         return services;
     }
 
@@ -33,7 +33,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IWebhookStatRepository, WebhookStatRepository>();
         services.AddScoped<IAppSettingRepository, AppSettingRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
-        
+
         return services;
     }
 
@@ -46,7 +46,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IPayloadCaptureManagementService, PayloadCaptureManagementService>();
         services.AddScoped<ISettingManagementService, SettingManagementService>();
         services.AddSingleton<ITemplateParsingService, TemplateParsingService>();
-        
+
         return services;
     }
 
@@ -62,7 +62,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IWebhookLoggingService, WebhookLoggingService>();
         services.AddScoped<IWebhookStatService, WebhookStatService>();
         services.AddScoped<IFailureNotificationService, FailureNotificationService>();
-        
+
         return services;
     }
 
@@ -70,7 +70,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddHostedService<PayloadCaptureCleanupService>();
         services.AddHostedService<WebhookLogCleanupService>();
-        
+
         return services;
     }
 
@@ -103,7 +103,7 @@ public static class ServiceCollectionExtensions
                 });
             }
         });
-        
+
         return services;
     }
 
@@ -112,11 +112,11 @@ public static class ServiceCollectionExtensions
         services.AddControllers();
         services.AddValidatorsFromAssemblyContaining<Program>();
         services.AddEndpointsApiExplorer();
-        services.Configure<IISServerOptions>(options => 
+        services.Configure<IISServerOptions>(options =>
         {
             options.AllowSynchronousIO = true;
         });
-        
+
         return services;
     }
 }

@@ -80,7 +80,7 @@ public class PayloadCaptureManagementServiceTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<BadRequestException>(
             () => _service.CreateSessionAsync(userId));
-        
+
         Assert.Contains("999", exception.Message);
     }
 
@@ -151,7 +151,7 @@ public class PayloadCaptureManagementServiceTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<NotFoundException>(
             () => _service.GetStatusAsync(sessionId));
-        
+
         Assert.Contains(sessionId, exception.Message);
     }
 
@@ -175,7 +175,7 @@ public class PayloadCaptureManagementServiceTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<NotFoundException>(
             () => _service.GetStatusAsync(sessionId));
-        
+
         Assert.Contains("not found", exception.Message);
         _mockPayloadCaptureQueue.Verify(x => x.RemoveSession(sessionId), Times.Once);
     }
@@ -209,7 +209,7 @@ public class PayloadCaptureManagementServiceTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<NotFoundException>(
             () => _service.CancelSessionAsync(sessionId));
-        
+
         Assert.Contains(sessionId, exception.Message);
     }
 
@@ -224,7 +224,7 @@ public class PayloadCaptureManagementServiceTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<ConflictException>(
             () => _service.CancelSessionAsync(sessionId));
-        
+
         Assert.Contains("already completed", exception.Message);
     }
 
@@ -234,7 +234,7 @@ public class PayloadCaptureManagementServiceTests
         // Arrange
         var sessionId = Guid.NewGuid().ToString();
         var payload = new { message = "test payload" };
-        
+
         _mockPayloadCaptureQueue.Setup(x => x.CompleteSession(sessionId, payload))
             .Returns(SessionOperationResult.Success);
 
@@ -251,14 +251,14 @@ public class PayloadCaptureManagementServiceTests
         // Arrange
         var sessionId = Guid.NewGuid().ToString();
         var payload = new { message = "test payload" };
-        
+
         _mockPayloadCaptureQueue.Setup(x => x.CompleteSession(sessionId, payload))
             .Returns(SessionOperationResult.SessionNotFound);
 
         // Act & Assert
         var exception = await Assert.ThrowsAsync<NotFoundException>(
             () => _service.CompleteSessionAsync(sessionId, payload));
-        
+
         Assert.Contains(sessionId, exception.Message);
     }
 
@@ -268,14 +268,14 @@ public class PayloadCaptureManagementServiceTests
         // Arrange
         var sessionId = Guid.NewGuid().ToString();
         var payload = new { message = "test payload" };
-        
+
         _mockPayloadCaptureQueue.Setup(x => x.CompleteSession(sessionId, payload))
             .Returns(SessionOperationResult.SessionExpired);
 
         // Act & Assert
         var exception = await Assert.ThrowsAsync<NotFoundException>(
             () => _service.CompleteSessionAsync(sessionId, payload));
-        
+
         Assert.Contains("not found", exception.Message);
     }
 
@@ -285,14 +285,14 @@ public class PayloadCaptureManagementServiceTests
         // Arrange
         var sessionId = Guid.NewGuid().ToString();
         var payload = new { message = "test payload" };
-        
+
         _mockPayloadCaptureQueue.Setup(x => x.CompleteSession(sessionId, payload))
             .Returns(SessionOperationResult.SessionAlreadyCompleted);
 
         // Act & Assert
         var exception = await Assert.ThrowsAsync<ConflictException>(
             () => _service.CompleteSessionAsync(sessionId, payload));
-        
+
         Assert.Contains("already completed", exception.Message);
     }
 
@@ -306,7 +306,7 @@ public class PayloadCaptureManagementServiceTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<BadRequestException>(
             () => _service.CompleteSessionAsync(sessionId, payload!));
-        
+
         Assert.Contains("Invalid payload", exception.Message);
     }
 
@@ -322,7 +322,7 @@ public class PayloadCaptureManagementServiceTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<BadRequestException>(
             () => _service.CompleteSessionAsync(sessionId, payload));
-        
+
         Assert.Contains("Invalid payload", exception.Message);
     }
 
@@ -337,7 +337,7 @@ public class PayloadCaptureManagementServiceTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<BadRequestException>(
             () => _service.CompleteSessionAsync(sessionId, payload));
-        
+
         Assert.Contains("Invalid payload", exception.Message);
     }
 
@@ -350,7 +350,7 @@ public class PayloadCaptureManagementServiceTests
     {
         // Arrange
         var sessionId = Guid.NewGuid().ToString();
-        
+
         _mockPayloadCaptureQueue.Setup(x => x.CompleteSession(sessionId, payload))
             .Returns(SessionOperationResult.Success);
 
@@ -377,7 +377,7 @@ public class PayloadCaptureManagementServiceTests
                 { "version", 1.0 }
             }
         };
-        
+
         _mockPayloadCaptureQueue.Setup(x => x.CompleteSession(sessionId, payload))
             .Returns(SessionOperationResult.Success);
 
