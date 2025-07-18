@@ -1,9 +1,9 @@
 import z from "zod";
-import { 
+import {
   EmailPasswordSignInValidationSchema,
   OidcSignInValidationSchema,
   UserSignupValidationSchema,
-  UserUpdateValidationSchema  
+  UserUpdateValidationSchema,
 } from "@/validation/user-schemas";
 
 /**
@@ -73,7 +73,9 @@ export type UpdateUserRequest = {
 /**
  * Form data for email/password sign-in
  */
-export type EmailPasswordSignInFormData = z.infer<typeof EmailPasswordSignInValidationSchema>;
+export type EmailPasswordSignInFormData = z.infer<
+  typeof EmailPasswordSignInValidationSchema
+>;
 
 /**
  * Form data for OIDC sign-in

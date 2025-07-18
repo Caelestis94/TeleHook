@@ -4,9 +4,9 @@ import { AppSettingsValidationSchema } from "@/validation/setting-schema";
 /**
  * Log level enum matching backend values
  */
-export type LogLevel = 
+export type LogLevel =
   | "Trace"
-  | "Debug" 
+  | "Debug"
   | "Information"
   | "Warning"
   | "Error"
@@ -69,4 +69,3 @@ export type NotificationTestResult = {
  * Form data for app settings (from validation schema)
  */
 export type AppSettingsFormData = z.infer<typeof AppSettingsValidationSchema>;
-

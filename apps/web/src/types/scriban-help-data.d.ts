@@ -17,11 +17,9 @@ export type HelpData = {
   examples: HelpSection[];
 };
 
-
 export type TabValue = (typeof tabOptions)[number]["value"];
-
 
 export type DateFormatPattern = {
   pattern: string;
   description: string;
-}
+};

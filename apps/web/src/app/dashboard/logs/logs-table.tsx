@@ -7,7 +7,6 @@ import { Activity } from "lucide-react";
 import { LogCard, LogColumns } from "@/app/dashboard/logs/";
 import { DataTable } from "@/components/data-table";
 import { WebhookLog } from "@/types/log";
-import { Separator } from "@/components/ui/separator";
 
 interface LogsTableProps {
   logs: WebhookLog[];
@@ -46,7 +45,6 @@ export function LogsTable({
   return (
     <div className="space-y-4">
       {/* Mobile Card Layout */}
-      <Separator className="my-4" />
       <div className="block lg:hidden">
         {isLoading ? (
           <div className="space-y-4">

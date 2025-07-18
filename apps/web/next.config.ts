@@ -6,8 +6,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  turbopack: {
-  },
+  turbopack: {},
   allowedDevOrigins: ["localhost", "10.0.2.4"],
   async headers() {
     return [

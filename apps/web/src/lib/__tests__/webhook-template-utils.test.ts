@@ -111,7 +111,7 @@ Name: {{user.name}}
     const mockPayloadSample =
       '{"user": {"name": "John", "id": 123}, "message": "Hello"}';
     const emptyPayloadSample = null;
-    
+
     it("should return variables from valid payload", () => {
       const result = getAvailableVariables(mockPayloadSample);
 

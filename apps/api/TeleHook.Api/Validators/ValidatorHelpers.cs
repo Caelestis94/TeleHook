@@ -46,7 +46,7 @@ public static class ValidatorHelpers
             return !await botRepo.ExistsByNameAsync(name);
         if (repository is IWebhookRepository webhookRepo)
             return !await webhookRepo.ExistsByNameAsync(name);
-        
+
         return true;
     }
 
@@ -56,7 +56,7 @@ public static class ValidatorHelpers
             return !await botRepo.ExistsByNameExcludingIdAsync(name, excludeId);
         if (repository is IWebhookRepository webhookRepo)
             return !await webhookRepo.ExistsByNameExcludingIdAsync(name, excludeId);
-        
+
         return true;
     }
 

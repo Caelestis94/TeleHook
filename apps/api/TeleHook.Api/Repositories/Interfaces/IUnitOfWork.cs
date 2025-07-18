@@ -8,7 +8,7 @@ public interface IUnitOfWork : IDisposable
     IWebhookStatRepository WebhookStats { get; }
     IUserRepository Users { get; }
     IAppSettingRepository AppSettings { get; }
-    
+
     Task<int> SaveChangesAsync();
     Task BeginTransactionAsync();
     Task CommitTransactionAsync();

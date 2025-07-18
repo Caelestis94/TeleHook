@@ -30,9 +30,7 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { ConfirmationDialog } from "@/components/confirmation-dialog";
-import {
-  AppSettingsValidationSchema,
-} from "@/validation/setting-schema";
+import { AppSettingsValidationSchema } from "@/validation/setting-schema";
 
 import { mapApiErrorsToFields } from "@/validation/utils";
 import { AppError } from "@/lib/error-handling";

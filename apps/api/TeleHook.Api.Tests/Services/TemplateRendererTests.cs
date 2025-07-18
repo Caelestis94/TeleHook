@@ -96,14 +96,14 @@ public class TemplateRendererTests
 
         var scriptObject = new ScriptObject();
         var itemsArray = new ScriptArray();
-        
+
         foreach (var item in sampleData.items)
         {
             var itemObj = new ScriptObject();
             itemObj["name"] = item.name;
             itemsArray.Add(itemObj);
         }
-        
+
         scriptObject["items"] = itemsArray;
 
         _mockJsonConverter.Setup(x => x.ConvertToScriptObject(sampleData))
@@ -286,7 +286,7 @@ public class TemplateRendererTests
         // Arrange  
         var template = "{{ name }}";
         var sampleData = new { name = "Test" };
-        
+
         // Create a script object that will cause rendering to fail
         var scriptObject = new ScriptObject();
         _mockJsonConverter.Setup(x => x.ConvertToScriptObject(sampleData))
@@ -342,7 +342,7 @@ public class TemplateRendererTests
         var scriptObject = new ScriptObject();
         var webhookObj = new ScriptObject();
         var userObj = new ScriptObject();
-        
+
         userObj["name"] = "johndoe";
         webhookObj["name"] = "GitHub Push";
         webhookObj["user"] = userObj;
@@ -367,7 +367,7 @@ public class TemplateRendererTests
         // Arrange
         var template = "Status: {{ if active }}Active{{ else }}Inactive{{ end }}";
         var sampleData = new { active = true };
-        
+
         var scriptObject = new ScriptObject();
         scriptObject["active"] = true;
 

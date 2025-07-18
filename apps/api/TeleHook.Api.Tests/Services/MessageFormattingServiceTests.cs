@@ -31,12 +31,12 @@ public class MessageFormattingServiceTests
         // Arrange
         var template = "Hello {{name}}, you are {{age}} years old!";
         var payload = JsonDocument.Parse("""{"name": "John", "age": 25}""").RootElement;
-        var webhook = new Webhook 
-        { 
-            Id = 1, 
-            Name = "Test Webhook", 
-            MessageTemplate = template, 
-            ParseMode = "None" 
+        var webhook = new Webhook
+        {
+            Id = 1,
+            Name = "Test Webhook",
+            MessageTemplate = template,
+            ParseMode = "None"
         };
 
         var parsedTemplate = Template.Parse(template);
@@ -66,12 +66,12 @@ public class MessageFormattingServiceTests
             }
         }
         """).RootElement;
-        var webhook = new Webhook 
-        { 
-            Id = 1, 
-            Name = "Test Webhook", 
-            MessageTemplate = template, 
-            ParseMode = "None" 
+        var webhook = new Webhook
+        {
+            Id = 1,
+            Name = "Test Webhook",
+            MessageTemplate = template,
+            ParseMode = "None"
         };
 
         var parsedTemplate = Template.Parse(template);
@@ -92,12 +92,12 @@ public class MessageFormattingServiceTests
         // Arrange
         var template = "Items: {{items[0]}}, {{items[1]}}, {{items[2]}}";
         var payload = JsonDocument.Parse("""{"items": ["apple", "banana", "cherry"]}""").RootElement;
-        var webhook = new Webhook 
-        { 
-            Id = 1, 
-            Name = "Test Webhook", 
-            MessageTemplate = template, 
-            ParseMode = "None" 
+        var webhook = new Webhook
+        {
+            Id = 1,
+            Name = "Test Webhook",
+            MessageTemplate = template,
+            ParseMode = "None"
         };
 
         var parsedTemplate = Template.Parse(template);
@@ -117,12 +117,12 @@ public class MessageFormattingServiceTests
         // Arrange
         var template = "Message: {{message}}";
         var payload = JsonDocument.Parse("""{"message": "Hello_world! This is a *test* with [links](http://example.com)"}""").RootElement;
-        var webhook = new Webhook 
-        { 
-            Id = 1, 
-            Name = "Test Webhook", 
-            MessageTemplate = template, 
-            ParseMode = "MarkdownV2" 
+        var webhook = new Webhook
+        {
+            Id = 1,
+            Name = "Test Webhook",
+            MessageTemplate = template,
+            ParseMode = "MarkdownV2"
         };
 
         var parsedTemplate = Template.Parse(template);
@@ -146,12 +146,12 @@ public class MessageFormattingServiceTests
         // Arrange
         var template = "Message: {{message}}";
         var payload = JsonDocument.Parse("""{"message": "Hello_world! This is a *test* with [links](http://example.com)"}""").RootElement;
-        var webhook = new Webhook 
-        { 
-            Id = 1, 
-            Name = "Test Webhook", 
-            MessageTemplate = template, 
-            ParseMode = "Markdown" 
+        var webhook = new Webhook
+        {
+            Id = 1,
+            Name = "Test Webhook",
+            MessageTemplate = template,
+            ParseMode = "Markdown"
         };
 
         var parsedTemplate = Template.Parse(template);
@@ -173,12 +173,12 @@ public class MessageFormattingServiceTests
         // Arrange
         var template = "Message: {{message}}";
         var payload = JsonDocument.Parse("""{"message": "<script>alert('test')</script> & \"quotes\""}""").RootElement;
-        var webhook = new Webhook 
-        { 
-            Id = 1, 
-            Name = "Test Webhook", 
-            MessageTemplate = template, 
-            ParseMode = "HTML" 
+        var webhook = new Webhook
+        {
+            Id = 1,
+            Name = "Test Webhook",
+            MessageTemplate = template,
+            ParseMode = "HTML"
         };
 
         var parsedTemplate = Template.Parse(template);
@@ -202,12 +202,12 @@ public class MessageFormattingServiceTests
         // Arrange
         var template = "Message: {{message}}";
         var payload = JsonDocument.Parse("""{"message": "Hello_world! *test* <tag>"}""").RootElement;
-        var webhook = new Webhook 
-        { 
-            Id = 1, 
-            Name = "Test Webhook", 
-            MessageTemplate = template, 
-            ParseMode = "None" 
+        var webhook = new Webhook
+        {
+            Id = 1,
+            Name = "Test Webhook",
+            MessageTemplate = template,
+            ParseMode = "None"
         };
 
         var parsedTemplate = Template.Parse(template);
@@ -227,12 +227,12 @@ public class MessageFormattingServiceTests
         // Arrange
         var template = "Hello {{name}}, you have {{points}} points and {{missing}} items";
         var payload = JsonDocument.Parse("""{"name": "John", "points": 100}""").RootElement;
-        var webhook = new Webhook 
-        { 
-            Id = 1, 
-            Name = "Test Webhook", 
-            MessageTemplate = template, 
-            ParseMode = "None" 
+        var webhook = new Webhook
+        {
+            Id = 1,
+            Name = "Test Webhook",
+            MessageTemplate = template,
+            ParseMode = "None"
         };
 
         var parsedTemplate = Template.Parse(template);
@@ -252,12 +252,12 @@ public class MessageFormattingServiceTests
         // Arrange
         var template = "";
         var payload = JsonDocument.Parse("""{"name": "John"}""").RootElement;
-        var webhook = new Webhook 
-        { 
-            Id = 1, 
-            Name = "Webhook Name", 
-            MessageTemplate = template, 
-            ParseMode = "None" 
+        var webhook = new Webhook
+        {
+            Id = 1,
+            Name = "Webhook Name",
+            MessageTemplate = template,
+            ParseMode = "None"
         };
 
         var parsedTemplate = Template.Parse(template);
@@ -277,20 +277,20 @@ public class MessageFormattingServiceTests
         // Arrange
         var template = "{{ name < }}";
         var payload = JsonDocument.Parse("""{"name": "John"}""").RootElement;
-        var webhook = new Webhook 
-        { 
-            Id = 1, 
-            Name = "Test Webhook", 
-            MessageTemplate = template, 
-            ParseMode = "None" 
+        var webhook = new Webhook
+        {
+            Id = 1,
+            Name = "Test Webhook",
+            MessageTemplate = template,
+            ParseMode = "None"
         };
 
         var parsedTemplate = Template.Parse(template);
         _mockTemplateParsingService.Setup(x => x.GetTemplate(webhook.Id)).Returns(parsedTemplate);
-        
+
         // Act
         var result = _service.FormatMessage(webhook, payload);
-        
+
         // Assert
         Assert.False(result.IsSuccess);
         Assert.Contains("Failed to format message template: ", result.Error);
@@ -303,12 +303,12 @@ public class MessageFormattingServiceTests
         // Arrange
         var template = "Hello {{name}}, you are {{age}} years old!";
         var payload = JsonDocument.Parse("{}").RootElement;
-        var webhook = new Webhook 
-        { 
-            Id = 1, 
-            Name = "Test Webhook", 
-            MessageTemplate = template, 
-            ParseMode = "None" 
+        var webhook = new Webhook
+        {
+            Id = 1,
+            Name = "Test Webhook",
+            MessageTemplate = template,
+            ParseMode = "None"
         };
 
         var parsedTemplate = Template.Parse(template);
@@ -338,12 +338,12 @@ public class MessageFormattingServiceTests
             }
         }
         """).RootElement;
-        var webhook = new Webhook 
-        { 
-            Id = 1, 
-            Name = "Test Webhook", 
-            MessageTemplate = template, 
-            ParseMode = "None" 
+        var webhook = new Webhook
+        {
+            Id = 1,
+            Name = "Test Webhook",
+            MessageTemplate = template,
+            ParseMode = "None"
         };
 
         var parsedTemplate = Template.Parse(template);
@@ -363,12 +363,12 @@ public class MessageFormattingServiceTests
         // Arrange
         var template = "Special chars: {{text}}";
         var payload = JsonDocument.Parse("""{"text": "Test_with*special+chars-and=more!"}""").RootElement;
-        var webhook = new Webhook 
-        { 
-            Id = 1, 
-            Name = "Test Webhook", 
-            MessageTemplate = template, 
-            ParseMode = "MarkdownV2" 
+        var webhook = new Webhook
+        {
+            Id = 1,
+            Name = "Test Webhook",
+            MessageTemplate = template,
+            ParseMode = "MarkdownV2"
         };
 
         var parsedTemplate = Template.Parse(template);
@@ -395,12 +395,12 @@ public class MessageFormattingServiceTests
             ]
         }
         """).RootElement;
-        var webhook = new Webhook 
-        { 
-            Id = 1, 
-            Name = "Test Webhook", 
-            MessageTemplate = template, 
-            ParseMode = "None" 
+        var webhook = new Webhook
+        {
+            Id = 1,
+            Name = "Test Webhook",
+            MessageTemplate = template,
+            ParseMode = "None"
         };
 
         var parsedTemplate = Template.Parse(template);
@@ -420,12 +420,12 @@ public class MessageFormattingServiceTests
         // Arrange
         var template = "Price: ${{price}}";
         var payload = JsonDocument.Parse("""{"price": 19.99}""").RootElement;
-        var webhook = new Webhook 
-        { 
-            Id = 1, 
-            Name = "Test Webhook", 
-            MessageTemplate = template, 
-            ParseMode = "None" 
+        var webhook = new Webhook
+        {
+            Id = 1,
+            Name = "Test Webhook",
+            MessageTemplate = template,
+            ParseMode = "None"
         };
 
         var parsedTemplate = Template.Parse(template);

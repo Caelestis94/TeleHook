@@ -1,6 +1,5 @@
 import { DateFormatPattern, HelpData } from ".";
 
-
 export const helpData: HelpData = {
   basics: [
     {
@@ -342,8 +341,6 @@ Time: {{ alert.timestamp | date.to_string "%H:%M:%S" }}`,
     },
   ],
 };
-
-
 
 export const dateFormatPatterns: DateFormatPattern[] = [
   { pattern: "%Y", description: "4-digit year (2025)" },

@@ -66,14 +66,16 @@ export function PageHeader({
           <BreadcrumbList>
             {breadcrumbItems.map((item, index) => {
               const isLast = index === breadcrumbItems.length - 1;
-              
+
               return (
                 <div key={index} className="flex items-center">
                   <BreadcrumbItem>
                     {isLast ? (
                       <BreadcrumbPage>{item.label}</BreadcrumbPage>
                     ) : (
-                      <BreadcrumbLink href={item.href!}>{item.label}</BreadcrumbLink>
+                      <BreadcrumbLink href={item.href!}>
+                        {item.label}
+                      </BreadcrumbLink>
                     )}
                   </BreadcrumbItem>
                   {!isLast && <BreadcrumbSeparator />}
@@ -118,7 +120,10 @@ export function PageHeader({
             </Button>
           ))}
           {createAction && (
-            <Button disabled={createAction.disabled} onClick={createAction.onClick}>
+            <Button
+              disabled={createAction.disabled}
+              onClick={createAction.onClick}
+            >
               <Plus className="w-4 h-4 mr-2" />
               {createAction.label || "Add"}
             </Button>

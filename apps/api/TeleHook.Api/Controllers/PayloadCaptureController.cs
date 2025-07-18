@@ -24,7 +24,7 @@ public class PayloadCaptureController : ControllerBase
         var session = await _payloadCaptureManagementService.CreateSessionAsync(startCaptureRequest.UserId);
         return Ok(session);
     }
-    
+
     [HttpGet]
     [RequireApiKey]
     [Route("capture/status/{sessionId}")]
@@ -33,7 +33,7 @@ public class PayloadCaptureController : ControllerBase
         var status = await _payloadCaptureManagementService.GetStatusAsync(sessionId);
         return Ok(status);
     }
-    
+
     [HttpGet]
     [RequireApiKey]
     [Route("capture/cancel/{sessionId}")]
@@ -42,20 +42,20 @@ public class PayloadCaptureController : ControllerBase
         var result = await _payloadCaptureManagementService.CancelSessionAsync(sessionId);
         return Ok(result);
     }
-    
+
     [HttpPost]
     [AllowAnonymous]
     [Route("capture/{sessionId}")]
     public async Task<ActionResult> ReceivePayload(string sessionId, [FromBody] object payload)
     {
         var result = await _payloadCaptureManagementService.CompleteSessionAsync(sessionId, payload);
-        
+
         if (result)
         {
             return Ok(new { message = "Payload captured successfully" });
         }
-        
+
         return BadRequest(new { message = "Failed to capture payload" });
     }
-    
+
 }

@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LucideIcon } from "lucide-react";
+import { Separator } from "../ui/separator";
 
 interface HelpStep {
   title: string;
@@ -32,7 +33,7 @@ export function HelpCard({
           <Icon className={`w-5 h-5 ${iconColor}`} />
           <span>{title}</span>
         </CardTitle>
-        <hr />
+        <Separator />
       </CardHeader>
       <CardContent>
         <div className="grid gap-4 md:grid-cols-2">

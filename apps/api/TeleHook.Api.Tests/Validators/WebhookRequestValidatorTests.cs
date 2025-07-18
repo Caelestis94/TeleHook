@@ -413,7 +413,7 @@ public class WebhookUpdateRequestValidatorTests
         result.ShouldHaveValidationErrorFor(x => x.BotId)
               .WithErrorMessage("The specified Bot does not exist");
     }
-    
+
     [Fact]
     public async Task MessageTemplate_WhenEmpty_ShouldHaveValidationError()
     {

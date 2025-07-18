@@ -12,17 +12,17 @@ public class AppDbContext : DbContext
     public DbSet<WebhookStat> WebhookStats { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<AppSetting> AppSettings { get; set; }
-    
+
     public AppDbContext(IConfiguration configuration)
     {
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
     }
-    
+
     public AppDbContext(DbContextOptions<AppDbContext> options, IConfiguration configuration) : base(options)
     {
         _configuration = configuration;
     }
-    
+
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
         if (!options.IsConfigured)
@@ -41,7 +41,7 @@ public class AppDbContext : DbContext
             entity.Property(e => e.BotToken).IsRequired();
             entity.Property(e => e.ChatId).IsRequired();
             entity.Property(e => e.CreatedAt).IsRequired();
-            
+
             entity.HasIndex(e => e.Name).IsUnique();
         });
 
@@ -73,11 +73,11 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Webhook>()
             .HasIndex(e => e.BotId)
             .HasDatabaseName("IX_Webhooks_BotId");
-        
+
         modelBuilder.Entity<Webhook>()
             .HasIndex(e => e.IsProtected)
             .HasDatabaseName("IX_Webhooks_IsProtected");
-        
+
         modelBuilder.Entity<Webhook>()
             .HasIndex(e => e.IsDisabled)
             .HasDatabaseName("IX_Webhooks_IsDisabled");
@@ -157,7 +157,7 @@ public class AppDbContext : DbContext
             entity.Property(e => e.Role).IsRequired().HasMaxLength(50).HasDefaultValue("admin");
             entity.Property(e => e.CreatedAt).IsRequired();
             entity.Property(e => e.UpdatedAt).IsRequired();
-    
+
             entity.Property(e => e.OidcId).HasMaxLength(255);
             entity.Property(e => e.AuthProvider).HasMaxLength(50).HasDefaultValue("credentials");
 
@@ -167,15 +167,15 @@ public class AppDbContext : DbContext
 
             entity.ToTable(t => t.HasCheckConstraint("CK_Users_Role",
                 "Role IN ('admin', 'user')"));
-        
+
             entity.ToTable(t => t.HasCheckConstraint("CK_Users_AuthProvider",
                 "AuthProvider IN ('credentials', 'oidc')"));
-        
+
             entity.ToTable(t => t.HasCheckConstraint("CK_Users_AuthMethod",
                 "(PasswordHash IS NOT NULL AND AuthProvider = 'credentials') OR " +
                 "(OidcId IS NOT NULL AND AuthProvider = 'oidc')"));
         });
-        
+
         modelBuilder.Entity<AppSetting>(entity =>
         {
             entity.HasKey(e => e.Id);
@@ -196,7 +196,7 @@ public class AppDbContext : DbContext
             entity.ToTable(t => t.HasCheckConstraint("CK_AppSettings_SingleRow",
                 "Id = 1"));
         });
-        
+
         modelBuilder.Entity<AppSetting>().HasData(new AppSetting
         {
             Id = 1,

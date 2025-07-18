@@ -41,7 +41,7 @@ public class WebhookManagementService : IWebhookManagementService
         _logger.LogDebug("Fetching webhook configuration with ID '{WebhookId}'", id);
 
         var webhook = await _unitOfWork.Webhooks.GetByIdWithRelationsAsync(id);
-        
+
         if (webhook == null)
         {
             _logger.LogWarning("Failed to find webhook with ID '{WebhookId}'", id);
@@ -84,7 +84,7 @@ public class WebhookManagementService : IWebhookManagementService
         await _unitOfWork.SaveChangesAsync();
 
         await _templateParsingService.RefreshTemplateAsync(webhook.Id);
-        
+
         _logger.LogInformation(
             "Successfully created webhook '{WebhookUUID}' with ID '{WebhookId}'",
             webhook.Uuid, webhook.Id);
@@ -136,7 +136,7 @@ public class WebhookManagementService : IWebhookManagementService
         await _unitOfWork.SaveChangesAsync();
 
         await _templateParsingService.RefreshTemplateAsync(webhookToUpdate.Id);
-        
+
         _logger.LogInformation(
             "Successfully updated webhook '{WebhookUUID}' (ID: {WebhookId}). Name changed: '{NameChanged}', Status changed: '{StatusChanged}'",
             webhookToUpdate.Uuid, id, oldName != webhookToUpdate.Name,
@@ -172,7 +172,7 @@ public class WebhookManagementService : IWebhookManagementService
 
             // Delete related logs first (cascading delete)
             var logs = await _unitOfWork.WebhookLogs.GetByWebhookIdAsync(id);
-            
+
             foreach (var log in logs)
             {
                 await _unitOfWork.WebhookLogs.DeleteAsync(log.Id);
@@ -216,7 +216,7 @@ public class WebhookManagementService : IWebhookManagementService
             _logger.LogWarning("Invalid ID '{WebhookId}' provided for webhook secret key generation", id);
             throw new BadRequestException("Invalid ID provided.");
         }
-        
+
         _logger.LogDebug("Generating secret key for webhook with ID '{WebhookId}'", id);
 
         var bytes = new byte[24];
@@ -233,7 +233,7 @@ public class WebhookManagementService : IWebhookManagementService
         webhook.SecretKey = key;
         await _unitOfWork.Webhooks.UpdateAsync(webhook);
         await _unitOfWork.SaveChangesAsync();
-        
+
         _logger.LogInformation("Successfully generated secret key for webhook '{WebhookUUID}' (ID: {WebhookId})",
             webhook.Uuid, id);
 
@@ -266,7 +266,7 @@ public class WebhookManagementService : IWebhookManagementService
         _logger.LogDebug("Exporting all webhook logs");
 
         var logs = await _unitOfWork.WebhookLogs.GetAllLogsForExportAsync();
-        
+
         _logger.LogInformation("Successfully exported {LogCount} webhook logs", logs.Count());
 
         return logs;

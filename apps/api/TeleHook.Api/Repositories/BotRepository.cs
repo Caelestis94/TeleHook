@@ -15,7 +15,7 @@ public class BotRepository : Repository<Bot>, IBotRepository
     {
         return await _dbSet.AnyAsync(tc => tc.Name == name);
     }
-    
+
     public async Task<bool> ExistsByNameExcludingIdAsync(string name, int excludeId)
     {
         return await _dbSet.AnyAsync(tc => tc.Name == name && tc.Id != excludeId);

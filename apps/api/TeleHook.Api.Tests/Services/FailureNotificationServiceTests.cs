@@ -44,7 +44,7 @@ public class FailureNotificationServiceTests
 
         // Assert
         _mockTelegramService.Verify(
-            x => x.SendMessageAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), 
+            x => x.SendMessageAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),
                 It.IsAny<string>(), It.IsAny<bool?>(), It.IsAny<bool?>(), It.IsAny<string>()),
             Times.Never);
     }
@@ -53,8 +53,8 @@ public class FailureNotificationServiceTests
     public async Task SendFailureNotificationAsync_WhenSettingsIncomplete_ShouldNotSendNotification()
     {
         // Arrange
-        var settings = new AppSetting 
-        { 
+        var settings = new AppSetting
+        {
             EnableFailureNotifications = true,
             NotificationBotToken = "test-token",
             NotificationChatId = null // Missing chat ID
@@ -66,7 +66,7 @@ public class FailureNotificationServiceTests
 
         // Assert
         _mockTelegramService.Verify(
-            x => x.SendMessageAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), 
+            x => x.SendMessageAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),
                 It.IsAny<string>(), It.IsAny<bool?>(), It.IsAny<bool?>(), It.IsAny<string>()),
             Times.Never);
     }
@@ -75,15 +75,15 @@ public class FailureNotificationServiceTests
     public async Task SendFailureNotificationAsync_WhenSettingsComplete_ShouldSendNotification()
     {
         // Arrange
-        var settings = new AppSetting 
-        { 
+        var settings = new AppSetting
+        {
             EnableFailureNotifications = true,
             NotificationBotToken = "123456789:ABCdefGHIjklMNOpqrSTUvwxyz123456789",
             NotificationChatId = "-123456789",
             NotificationTopicId = "456"
         };
         _mockAppSettingRepo.Setup(x => x.GetSettingsAsync()).ReturnsAsync(settings);
-        _mockTelegramService.Setup(x => x.SendMessageAsync(It.IsAny<string>(), It.IsAny<string>(), 
+        _mockTelegramService.Setup(x => x.SendMessageAsync(It.IsAny<string>(), It.IsAny<string>(),
             It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool?>(), It.IsAny<bool?>(), It.IsAny<string>()))
             .ReturnsAsync(TelegramResult.Success());
 
@@ -107,14 +107,14 @@ public class FailureNotificationServiceTests
     public async Task SendFailureNotificationAsync_WhenTelegramServiceThrows_ShouldLogErrorAndNotThrow()
     {
         // Arrange
-        var settings = new AppSetting 
-        { 
+        var settings = new AppSetting
+        {
             EnableFailureNotifications = true,
             NotificationBotToken = "test-token",
             NotificationChatId = "123456789"
         };
         _mockAppSettingRepo.Setup(x => x.GetSettingsAsync()).ReturnsAsync(settings);
-        _mockTelegramService.Setup(x => x.SendMessageAsync(It.IsAny<string>(), It.IsAny<string>(), 
+        _mockTelegramService.Setup(x => x.SendMessageAsync(It.IsAny<string>(), It.IsAny<string>(),
             It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool?>(), It.IsAny<bool?>(), It.IsAny<string>()))
             .ThrowsAsync(new Exception("Telegram error"));
 
@@ -177,13 +177,13 @@ public class FailureNotificationServiceTests
     public async Task TestNotificationAsync_WhenSettingsValid_ShouldReturnTrue()
     {
         // Arrange
-        var settings = new AppSetting 
-        { 
+        var settings = new AppSetting
+        {
             NotificationBotToken = "test-token",
             NotificationChatId = "123456789"
         };
         _mockAppSettingRepo.Setup(x => x.GetSettingsAsync()).ReturnsAsync(settings);
-        _mockTelegramService.Setup(x => x.SendMessageAsync(It.IsAny<string>(), It.IsAny<string>(), 
+        _mockTelegramService.Setup(x => x.SendMessageAsync(It.IsAny<string>(), It.IsAny<string>(),
             It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool?>(), It.IsAny<bool?>(), It.IsAny<string>()))
             .ReturnsAsync(TelegramResult.Success());
 
@@ -208,8 +208,8 @@ public class FailureNotificationServiceTests
     public async Task TestNotificationAsync_WhenSettingsInvalid_ShouldReturnFalse()
     {
         // Arrange
-        var settings = new AppSetting 
-        { 
+        var settings = new AppSetting
+        {
             NotificationBotToken = null,
             NotificationChatId = "123456789"
         };
@@ -221,7 +221,7 @@ public class FailureNotificationServiceTests
         // Assert
         Assert.False(result.IsSuccess);
         _mockTelegramService.Verify(
-            x => x.SendMessageAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), 
+            x => x.SendMessageAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),
                 It.IsAny<string>(), It.IsAny<bool?>(), It.IsAny<bool?>(), It.IsAny<string>()),
             Times.Never);
     }
@@ -230,13 +230,13 @@ public class FailureNotificationServiceTests
     public async Task TestNotificationAsync_WhenTelegramServiceFails_ShouldReturnFalse()
     {
         // Arrange
-        var settings = new AppSetting 
-        { 
+        var settings = new AppSetting
+        {
             NotificationBotToken = "test-token",
             NotificationChatId = "123456789"
         };
         _mockAppSettingRepo.Setup(x => x.GetSettingsAsync()).ReturnsAsync(settings);
-        _mockTelegramService.Setup(x => x.SendMessageAsync(It.IsAny<string>(), It.IsAny<string>(), 
+        _mockTelegramService.Setup(x => x.SendMessageAsync(It.IsAny<string>(), It.IsAny<string>(),
             It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool?>(), It.IsAny<bool?>(), It.IsAny<string>()))
             .ThrowsAsync(new Exception("Telegram error"));
 

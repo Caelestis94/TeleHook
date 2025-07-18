@@ -13,7 +13,7 @@ public class PayloadCaptureService : IPayloadCaptureQueue
     public string CreateSession(int userId)
     {
         var sessionId = Guid.NewGuid().ToString();
-        
+
         var session = new CaptureSession
         {
             Id = sessionId,
@@ -24,7 +24,7 @@ public class PayloadCaptureService : IPayloadCaptureQueue
         };
 
         _sessions.GetOrAdd(sessionId, session);
-        
+
         return sessionId;
     }
 
@@ -37,19 +37,19 @@ public class PayloadCaptureService : IPayloadCaptureQueue
     {
         if (!_sessions.TryGetValue(sessionId, out var session))
             return SessionOperationResult.SessionNotFound;
-        
+
         if (session.ExpiresAt < DateTime.UtcNow)
         {
             _sessions.TryRemove(sessionId, out _);
             return SessionOperationResult.SessionExpired;
         }
-        
+
         if (session.IsCompleted)
             return SessionOperationResult.SessionAlreadyCompleted;
-        
+
         session.CapturedPayload = payload;
         session.IsCompleted = true;
-        
+
         return SessionOperationResult.Success;
     }
 
@@ -57,15 +57,15 @@ public class PayloadCaptureService : IPayloadCaptureQueue
     {
         if (!_sessions.TryGetValue(sessionId, out var session))
             return SessionOperationResult.SessionNotFound;
-        
+
         if (session.IsCompleted)
             return SessionOperationResult.SessionAlreadyCompleted;
-        
+
         _sessions.TryRemove(sessionId, out _);
-        
+
         return SessionOperationResult.SessionCancelled;
     }
-    
+
     public bool RemoveSession(string sessionId)
     {
         return _sessions.TryRemove(sessionId, out _);
@@ -92,6 +92,6 @@ public class PayloadCaptureService : IPayloadCaptureQueue
             _sessions.TryRemove(sessionId, out _);
         }
     }
-    
+
 }
 

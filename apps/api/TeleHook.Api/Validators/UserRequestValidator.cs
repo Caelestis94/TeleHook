@@ -79,6 +79,6 @@ public class UpdateUserRequestValidator : AbstractValidator<UpdateUserDto>
         RuleFor(x => x.LastName)
             .MaximumLength(50)
             .WithMessage("Last name must be 50 characters or less");
-        
+
     }
 }

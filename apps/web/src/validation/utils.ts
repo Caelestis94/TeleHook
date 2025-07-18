@@ -5,16 +5,19 @@
  * @param {string | string[]} keywords - The keyword(s) to search for (e.g., "Name", ["BotToken", "Token"]). The search is case-insensitive.
  * @returns {string[]} An array of matching error messages. The array will be empty if no matches are found.
  */
-export const getFieldErrors = (errors: string[] | undefined, keywords: string | string[]): string[] => {
+export const getFieldErrors = (
+  errors: string[] | undefined,
+  keywords: string | string[]
+): string[] => {
   if (!errors || errors.length === 0) {
-    return []; 
+    return [];
   }
-  
+
   const keywordArray = Array.isArray(keywords) ? keywords : [keywords];
-  const lowerCaseKeywords = keywordArray.map(k => k.toLowerCase());
-  
-  return errors.filter(error => 
-    lowerCaseKeywords.some(keyword => error.toLowerCase().includes(keyword))
+  const lowerCaseKeywords = keywordArray.map((k) => k.toLowerCase());
+
+  return errors.filter((error) =>
+    lowerCaseKeywords.some((keyword) => error.toLowerCase().includes(keyword))
   );
 };
 
@@ -25,22 +28,22 @@ export const getFieldErrors = (errors: string[] | undefined, keywords: string | 
  */
 export const humanizeFieldName = (error: string): string => {
   const replacements: Record<string, string> = {
-    'BotToken': 'Bot Token',
-    'ChatId': 'Chat ID',
-    'MessageTemplate': 'Message Template',
-    'ParseMode': 'Parse Mode',
-    'DisableWebPagePreview': 'Disable Web Page Preview',
-    'DisableNotification': 'Disable Notification',
-    'TopicId': 'Topic ID',
-    'PayloadSample': 'Payload Sample',
+    BotToken: "Bot Token",
+    ChatId: "Chat ID",
+    MessageTemplate: "Message Template",
+    ParseMode: "Parse Mode",
+    DisableWebPagePreview: "Disable Web Page Preview",
+    DisableNotification: "Disable Notification",
+    TopicId: "Topic ID",
+    PayloadSample: "Payload Sample",
   };
 
   let humanizedError = error;
   for (const [backend, human] of Object.entries(replacements)) {
-    const regex = new RegExp(`\\b${backend}\\b`, 'gi');
+    const regex = new RegExp(`\\b${backend}\\b`, "gi");
     humanizedError = humanizedError.replace(regex, human);
   }
-  
+
   return humanizedError;
 };
 
@@ -51,18 +54,19 @@ export const humanizeFieldName = (error: string): string => {
  */
 export const prioritizeErrors = (errors: string[]): string[] => {
   if (errors.length === 0) return errors;
-  
+
   // Check if any error contains "required"
-  const requiredErrors = errors.filter(error => 
-    error.toLowerCase().includes('required') || 
-    error.toLowerCase().includes('is required')
+  const requiredErrors = errors.filter(
+    (error) =>
+      error.toLowerCase().includes("required") ||
+      error.toLowerCase().includes("is required")
   );
-  
+
   // If we have required errors, only show those
   if (requiredErrors.length > 0) {
     return requiredErrors;
   }
-  
+
   // Otherwise return all errors
   return errors;
 };
@@ -74,7 +78,7 @@ export const prioritizeErrors = (errors: string[]): string[] => {
  * @returns {Record<string, string[]>} An object with form field names as keys and arrays of error messages as values.
  */
 export const mapApiErrorsToFields = (
-  errors: string[] | undefined, 
+  errors: string[] | undefined,
   fieldMap: Record<string, string | string[]>
 ): Record<string, string[]> => {
   if (!errors || errors.length === 0) {
@@ -82,7 +86,7 @@ export const mapApiErrorsToFields = (
   }
 
   const result: Record<string, string[]> = {};
-  
+
   for (const [fieldName, keywords] of Object.entries(fieldMap)) {
     const fieldErrors = getFieldErrors(errors, keywords);
     if (fieldErrors.length > 0) {
@@ -93,6 +97,6 @@ export const mapApiErrorsToFields = (
       result[fieldName] = humanizedErrors;
     }
   }
-  
+
   return result;
 };

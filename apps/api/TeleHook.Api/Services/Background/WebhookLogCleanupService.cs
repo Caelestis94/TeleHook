@@ -38,7 +38,7 @@ public class WebhookLogCleanupService : BackgroundService
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error during webhook log cleanup");
-                
+
                 try
                 {
                     await Task.Delay(_cleanupInterval, stoppingToken);
@@ -65,7 +65,7 @@ public class WebhookLogCleanupService : BackgroundService
         var unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
 
         var cutoffDate = DateTime.UtcNow.AddDays(-_appSetting.WebhookLogRetentionDays);
-        
+
         _logger.LogDebug("Starting webhook log cleanup for logs older than {CutoffDate}", cutoffDate);
 
         var deletedCount = await unitOfWork.WebhookLogs.DeleteLogsOlderThanAsync(cutoffDate);

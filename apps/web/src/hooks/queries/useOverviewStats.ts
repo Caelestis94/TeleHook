@@ -1,11 +1,11 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery } from "@tanstack/react-query";
 import { handleApiResponse } from "@/lib/error-handling";
-import { WebhookStatsOverview } from '@/types/stats'
+import { WebhookStatsOverview } from "@/types/stats";
 
 const fetchOverviewStats = async (): Promise<WebhookStatsOverview> => {
-  const response = await fetch('/api/webhooks/stats/overview')
+  const response = await fetch("/api/webhooks/stats/overview");
   return handleApiResponse(response);
-}
+};
 
 export const useOverviewStats = () => {
   return useQuery({
@@ -15,4 +15,4 @@ export const useOverviewStats = () => {
     retry: 2,
     staleTime: 30000, // 30 seconds
   });
-}
+};

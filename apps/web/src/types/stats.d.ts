@@ -1,5 +1,3 @@
-
-
 /**
  * Indivual webhook statistics
  */

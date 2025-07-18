@@ -134,7 +134,7 @@ public class BotManagementServiceTests
 
         // Act
         var exception = await Assert.ThrowsAsync<NotFoundException>(() => _service.GetBotWebhooksAsync(999));
-        
+
         // Assert
         Assert.Equal("Bot with ID '999' was not found", exception.Message);
         _mockBotRepository.Verify(r => r.GetByIdAsync(999), Times.Once);
@@ -335,7 +335,10 @@ public class BotManagementServiceTests
         // Arrange
         var request = new UpdateBotDto
         {
-            Id = 999, Name = "Test", BotToken = "token", ChatId = "chat"
+            Id = 999,
+            Name = "Test",
+            BotToken = "token",
+            ChatId = "chat"
         };
 
         // Act & Assert

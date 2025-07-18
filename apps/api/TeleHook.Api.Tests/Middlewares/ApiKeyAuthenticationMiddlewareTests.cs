@@ -37,7 +37,7 @@ public class ApiKeyAuthenticationMiddlewareTests
     {
         var context = new DefaultHttpContext();
         context.Request.Path = path;
-        
+
         if (apiKey != null)
         {
             context.Request.Headers["X-API-KEY"] = apiKey;
@@ -50,7 +50,7 @@ public class ApiKeyAuthenticationMiddlewareTests
     {
         var context = new DefaultHttpContext();
         context.Request.Path = path;
-        
+
         if (apiKey != null)
         {
             context.Request.Headers["X-API-KEY"] = apiKey;
@@ -62,7 +62,7 @@ public class ApiKeyAuthenticationMiddlewareTests
             requestDelegate: (context) => Task.CompletedTask,
             metadata: metadata,
             displayName: "Test Endpoint");
-        
+
         context.SetEndpoint(endpoint);
 
         return context;
@@ -157,7 +157,7 @@ public class ApiKeyAuthenticationMiddlewareTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<UnauthorizedException>(() =>
             _middleware.InvokeAsync(context, _mockUnitOfWork.Object));
-        
+
         Assert.Equal("API Key is required", exception.Message);
         _mockNext.Verify(next => next(It.IsAny<HttpContext>()), Times.Never);
     }
@@ -171,7 +171,7 @@ public class ApiKeyAuthenticationMiddlewareTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<UnauthorizedException>(() =>
             _middleware.InvokeAsync(context, _mockUnitOfWork.Object));
-        
+
         Assert.Equal("Invalid API Key", exception.Message);
         _mockNext.Verify(next => next(It.IsAny<HttpContext>()), Times.Never);
     }
@@ -185,7 +185,7 @@ public class ApiKeyAuthenticationMiddlewareTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<UnauthorizedException>(() =>
             _middleware.InvokeAsync(context, _mockUnitOfWork.Object));
-        
+
         Assert.Equal("Invalid API Key", exception.Message);
         _mockNext.Verify(next => next(It.IsAny<HttpContext>()), Times.Never);
     }
@@ -199,7 +199,7 @@ public class ApiKeyAuthenticationMiddlewareTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<UnauthorizedException>(() =>
             _middleware.InvokeAsync(context, _mockUnitOfWork.Object));
-        
+
         Assert.Equal("Invalid API Key", exception.Message);
         _mockNext.Verify(next => next(It.IsAny<HttpContext>()), Times.Never);
     }
@@ -223,7 +223,7 @@ public class ApiKeyAuthenticationMiddlewareTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<InternalServerErrorException>(() =>
             middleware.InvokeAsync(context, _mockUnitOfWork.Object));
-        
+
         Assert.Equal("API Key not configured", exception.Message);
         _mockNext.Verify(next => next(It.IsAny<HttpContext>()), Times.Never);
     }
@@ -243,7 +243,7 @@ public class ApiKeyAuthenticationMiddlewareTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<InternalServerErrorException>(() =>
             middleware.InvokeAsync(context, _mockUnitOfWork.Object));
-        
+
         Assert.Equal("API Key not configured", exception.Message);
         _mockNext.Verify(next => next(It.IsAny<HttpContext>()), Times.Never);
     }
@@ -261,7 +261,7 @@ public class ApiKeyAuthenticationMiddlewareTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<UnauthorizedException>(() =>
             _middleware.InvokeAsync(context, _mockUnitOfWork.Object));
-        
+
         Assert.Equal("Invalid API Key", exception.Message);
         _mockNext.Verify(next => next(It.IsAny<HttpContext>()), Times.Never);
     }
@@ -296,7 +296,7 @@ public class ApiKeyAuthenticationMiddlewareTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<UnauthorizedException>(() =>
             _middleware.InvokeAsync(context, _mockUnitOfWork.Object));
-        
+
         Assert.Equal("API Key is required", exception.Message);
     }
 
@@ -350,7 +350,7 @@ public class ApiKeyAuthenticationMiddlewareTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<UnauthorizedException>(() =>
             _middleware.InvokeAsync(context, _mockUnitOfWork.Object));
-        
+
         Assert.Equal("API Key is required", exception.Message);
     }
 

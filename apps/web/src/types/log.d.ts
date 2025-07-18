@@ -1,4 +1,3 @@
-
 /**
  * Webhook Request Log Entry
  * Represents a logged webhook request with processing details
@@ -25,7 +24,7 @@ export type WebhookLog = {
     name: string;
     uuid: string;
   };
-}
+};
 
 /**
  * Webhook Log Export Entry
@@ -49,7 +48,7 @@ export type WebhookLogExport = {
   telegramSent: boolean;
   telegramResponse?: string;
   createdAt: string;
-}
+};
 
 /**
  * Log Filters Interface
@@ -60,4 +59,4 @@ export type LogFilters = {
   dateFrom?: string;
   dateTo?: string;
   searchTerm?: string;
-}
+};

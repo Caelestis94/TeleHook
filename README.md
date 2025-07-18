@@ -253,20 +253,20 @@ action:
 
 ### Environment Variables
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `TELEHOOK_API_KEY` | API authentication key | *Required* |
-| `FRONTEND_PORT` | Web interface port | `3000` |
-| `BACKEND_PORT` | API port | `5001` |
-| `DATABASE_PATH` | SQLite database location | `/data/telehook.db` |
-| `LOG_LEVEL` | Logging verbosity | `Information` |
-| `NEXTAUTH_SECRET` | NextAuth encryption key | *Required* |
-| `NEXTAUTH_URL` | NextAuth base URL | *Required* |
-| `OIDC_WELL_KNOWN_URL` | OIDC Well known URL | *Optional* |
-| `OIDC_CLIENT_ID` | OIDC client ID | *Optional* |
-| `OIDC_CLIENT_SECRET` | OIDC client secret | *Optional* |
-| `OIDC_PROVIDER_NAME` | OIDC provider name |  *Optional* |
-| `SECURITY__TRUSTFORWARDEDHEADERS` | Trust forwarded headers for security (Direct Api access) | `false` |
+| Variable                          | Description                                              | Default             |
+| --------------------------------- | -------------------------------------------------------- | ------------------- |
+| `TELEHOOK_API_KEY`                | API authentication key                                   | _Required_          |
+| `FRONTEND_PORT`                   | Web interface port                                       | `3000`              |
+| `BACKEND_PORT`                    | API port                                                 | `5001`              |
+| `DATABASE_PATH`                   | SQLite database location                                 | `/data/telehook.db` |
+| `LOG_LEVEL`                       | Logging verbosity                                        | `Information`       |
+| `NEXTAUTH_SECRET`                 | NextAuth encryption key                                  | _Required_          |
+| `NEXTAUTH_URL`                    | NextAuth base URL                                        | _Required_          |
+| `OIDC_WELL_KNOWN_URL`             | OIDC Well known URL                                      | _Optional_          |
+| `OIDC_CLIENT_ID`                  | OIDC client ID                                           | _Optional_          |
+| `OIDC_CLIENT_SECRET`              | OIDC client secret                                       | _Optional_          |
+| `OIDC_PROVIDER_NAME`              | OIDC provider name                                       | _Optional_          |
+| `SECURITY__TRUSTFORWARDEDHEADERS` | Trust forwarded headers for security (Direct Api access) | `false`             |
 
 ## 📊 Monitoring
 

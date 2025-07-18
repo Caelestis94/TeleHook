@@ -7,4 +7,4 @@ export type ApiError = {
   details: string[];
   traceId: string;
   timestamp: string;
-}
+};

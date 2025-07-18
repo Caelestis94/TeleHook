@@ -59,11 +59,11 @@ public class TelegramServiceTests
         var webhook = CreateTestWebhook();
         var messageText = "Test message";
 
-        var errorContent = JsonSerializer.Serialize(new 
-        { 
-            ok = false, 
-            error_code = 400, 
-            description = "Bad Request: chat not found" 
+        var errorContent = JsonSerializer.Serialize(new
+        {
+            ok = false,
+            error_code = 400,
+            description = "Bad Request: chat not found"
         });
         var httpResponse = new HttpResponseMessage(HttpStatusCode.BadRequest)
         {
@@ -80,7 +80,7 @@ public class TelegramServiceTests
 
         // Act & Assert
         var result = await _service.SendMessageAsync(webhook, messageText);
-        
+
         Assert.Contains("Bad Request: chat not found", result.Error);
         Assert.Equal(400, result.StatusCode);
     }
@@ -101,8 +101,8 @@ public class TelegramServiceTests
             .ThrowsAsync(new HttpRequestException("Network error"));
 
         // Act & Assert
-        var result = await  _service.SendMessageAsync(webhook, messageText);
-        
+        var result = await _service.SendMessageAsync(webhook, messageText);
+
         Assert.Contains("HTTP request failed", result.Error);
         Assert.False(result.IsSuccess);
     }
@@ -123,8 +123,8 @@ public class TelegramServiceTests
             .ThrowsAsync(new TaskCanceledException("Request timeout"));
 
         // Act & Assert
-        var result = await  _service.SendMessageAsync(webhook, messageText);
-        
+        var result = await _service.SendMessageAsync(webhook, messageText);
+
         Assert.Contains("Request timeout", result.Error);
         Assert.False(result.IsSuccess);
     }
@@ -160,7 +160,7 @@ public class TelegramServiceTests
         Assert.NotNull(capturedRequest);
         var requestContent = await capturedRequest.Content!.ReadAsStringAsync();
         var payload = JsonSerializer.Deserialize<JsonElement>(requestContent);
-        
+
         Assert.True(payload.TryGetProperty("message_thread_id", out var threadId));
         Assert.Equal("123", threadId.GetString());
     }
@@ -196,7 +196,7 @@ public class TelegramServiceTests
         Assert.NotNull(capturedRequest);
         var requestContent = await capturedRequest.Content!.ReadAsStringAsync();
         var payload = JsonSerializer.Deserialize<JsonElement>(requestContent);
-        
+
         Assert.False(payload.TryGetProperty("message_thread_id", out _));
     }
 
@@ -206,15 +206,15 @@ public class TelegramServiceTests
         // Arrange
         var config = CreateTestBot();
 
-        var responseContent = JsonSerializer.Serialize(new 
-        { 
-            ok = true, 
-            result = new 
-            { 
-                id = 123456789, 
+        var responseContent = JsonSerializer.Serialize(new
+        {
+            ok = true,
+            result = new
+            {
+                id = 123456789,
                 username = "test_bot",
                 first_name = "Test Bot"
-            } 
+            }
         });
         var httpResponse = new HttpResponseMessage(HttpStatusCode.OK)
         {
@@ -231,7 +231,7 @@ public class TelegramServiceTests
 
         // Act & Assert (should not throw)
         await _service.TestConnectionAsync(config);
-        
+
         VerifyHttpRequest("getMe", config.BotToken);
     }
 
@@ -241,11 +241,11 @@ public class TelegramServiceTests
         // Arrange
         var config = CreateTestBot();
 
-        var errorContent = JsonSerializer.Serialize(new 
-        { 
-            ok = false, 
-            error_code = 401, 
-            description = "Unauthorized" 
+        var errorContent = JsonSerializer.Serialize(new
+        {
+            ok = false,
+            error_code = 401,
+            description = "Unauthorized"
         });
         var httpResponse = new HttpResponseMessage(HttpStatusCode.Unauthorized)
         {
@@ -261,8 +261,8 @@ public class TelegramServiceTests
             .ReturnsAsync(httpResponse);
 
         // Act & Assert
-        var result = await  _service.TestConnectionAsync(config);
-        
+        var result = await _service.TestConnectionAsync(config);
+
         Assert.Contains("Unauthorized", result.Error);
         Assert.Equal(401, result.StatusCode);
     }
@@ -289,7 +289,7 @@ public class TelegramServiceTests
 
         // Act & Assert
         var exception = await _service.TestConnectionAsync(config);
-        
+
         Assert.Contains("ok=false", exception.Error);
         Assert.False(exception.IsSuccess);
         Assert.Equal(400, exception.StatusCode);
@@ -310,8 +310,8 @@ public class TelegramServiceTests
             .ThrowsAsync(new HttpRequestException("DNS resolution failed"));
 
         // Act & Assert
-        var result = await  _service.TestConnectionAsync(config);
-        
+        var result = await _service.TestConnectionAsync(config);
+
         Assert.Contains("HTTP request failed", result.Error);
         Assert.False(result.IsSuccess);
         Assert.Equal(502, result.StatusCode);
@@ -350,8 +350,8 @@ public class TelegramServiceTests
             .Verify(
                 "SendAsync",
                 Times.Once(),
-                ItExpr.Is<HttpRequestMessage>(req => 
-                    req.RequestUri != null && 
+                ItExpr.Is<HttpRequestMessage>(req =>
+                    req.RequestUri != null &&
                     req.RequestUri.ToString().Contains($"bot{expectedToken}/{expectedMethod}")),
                 ItExpr.IsAny<CancellationToken>());
     }

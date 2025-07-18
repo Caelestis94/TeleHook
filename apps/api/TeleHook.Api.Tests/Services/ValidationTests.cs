@@ -82,7 +82,7 @@ public class ValidationTests
         // Setup validation for duplicate name scenario
         _mockValidationService.Setup(x => x.ValidateAsync(It.Is<CreateWebhookDto>(r => r.Name == "Duplicate Name")))
             .ReturnsAsync(new ValidationResult(new[] { new ValidationFailure("Name", "A webhook endpoint with this name already exists") }));
-        
+
         // Setup validation success for valid requests by default
         _mockValidationService.Setup(x => x.ValidateAsync(It.Is<CreateWebhookDto>(r =>
             !string.IsNullOrEmpty(r.Name) && !string.IsNullOrEmpty(r.MessageTemplate) && r.Name != "Duplicate Name")))
@@ -238,11 +238,11 @@ public class ValidationTests
     }
 
     #endregion
-    
-    #region User Validation Tests
-    
 
-    
+    #region User Validation Tests
+
+
+
     #endregion
 
     #region Cross-Cutting Validation Tests

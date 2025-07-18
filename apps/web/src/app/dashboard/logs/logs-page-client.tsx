@@ -7,6 +7,7 @@ import { useLogs, useLogsExport, useWebhooks } from "@/hooks/queries";
 import type { WebhookLog, LogFilters } from "@/types/log";
 import { PageHeader } from "@/components/layout";
 import { handleError } from "@/lib/error-handling";
+import { Separator } from "@/components/ui/separator";
 
 export function LogsPageClient() {
   // Filter state
@@ -133,6 +134,7 @@ export function LogsPageClient() {
 
         {/* Stats Summary */}
         <LogsStatsCards logs={logs} />
+        <Separator className="mb-4" />
 
         {/* Logs table */}
         <LogsTable

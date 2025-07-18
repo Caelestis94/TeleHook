@@ -204,9 +204,9 @@ public class BotManagementService : IBotManagementService
         }
         await _unitOfWork.Bots.UpdateAsync(bot);
         await _unitOfWork.SaveChangesAsync();
-        
-        return testResult.IsSuccess 
-            ? BotTestResult.Success() 
+
+        return testResult.IsSuccess
+            ? BotTestResult.Success()
             : BotTestResult.Failure(testResult.Error);
 
     }

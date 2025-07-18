@@ -12,7 +12,7 @@ public class WebhookStatService : IWebhookStatService
     private readonly ILogger<WebhookStatService> _logger;
     private readonly AppSettingDto _appSetting;
 
-    public WebhookStatService(IUnitOfWork unitOfWork, ILogger<WebhookStatService> logger,AppSettingDto appSetting)
+    public WebhookStatService(IUnitOfWork unitOfWork, ILogger<WebhookStatService> logger, AppSettingDto appSetting)
     {
         _unitOfWork = unitOfWork;
         _logger = logger;
@@ -103,7 +103,7 @@ public class WebhookStatService : IWebhookStatService
         try
         {
             var intervalDays = _appSetting.StatsDaysInterval > 0 ? _appSetting.StatsDaysInterval : -30;
-            
+
             var interval = DateTime.UtcNow.AddDays(-intervalDays).Date;
             var today = DateTime.UtcNow.Date;
 
@@ -122,7 +122,7 @@ public class WebhookStatService : IWebhookStatService
                 .OrderBy(s => s.Date)
                 .Select(s => new
                 {
-                    Date = s.Date.ToString("yyyy-MM-dd"), 
+                    Date = s.Date.ToString("yyyy-MM-dd"),
                     Requests = s.TotalRequests,
                     SuccessRate = s.TotalRequests > 0 ? (double)s.SuccessfulRequests / s.TotalRequests * 100 : 0,
                     AvgProcessingTime = s.AvgProcessingTimeMs
@@ -161,7 +161,7 @@ public class WebhookStatService : IWebhookStatService
     {
         try
         {
-        
+
             var startDate = DateTime.UtcNow.AddDays(-days).Date;
             var endDate = DateTime.UtcNow.Date;
 

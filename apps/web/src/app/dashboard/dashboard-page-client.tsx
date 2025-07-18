@@ -107,7 +107,7 @@ export function DashboardOverviewClient() {
 
       {/* Summary Stats Cards */}
       <DashboardStatsCards stats={stats || null} isLoading={isLoading} />
-      <Separator className="my-4" />
+      <Separator className="mb-4" />
 
       {/* Charts Row */}
       {isLoading ? (

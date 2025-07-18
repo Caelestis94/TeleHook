@@ -5,4 +5,11 @@ import { LogCard } from "./log-card";
 import { LogDetailsDialog } from "./log-details-dialog";
 import { LogColumns } from "./log-columns";
 
-export { LogsStatsCards, LogsFilters, LogsTable, LogCard, LogDetailsDialog , LogColumns };
+export {
+  LogsStatsCards,
+  LogsFilters,
+  LogsTable,
+  LogCard,
+  LogDetailsDialog,
+  LogColumns,
+};

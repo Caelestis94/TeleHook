@@ -6,7 +6,12 @@ export class AppError extends Error {
   code?: string;
   details?: string[];
 
-  constructor(message: string, status = 500, code?: string, details?: string[]) {
+  constructor(
+    message: string,
+    status = 500,
+    code?: string,
+    details?: string[]
+  ) {
     super(message);
     this.name = "AppError";
     this.status = status;
@@ -24,7 +29,9 @@ export function setApiKeyErrorCallback(callback: () => void) {
 /**
  * Handle API response errors and convert them to AppError
  */
-export async function handleApiResponse<T = unknown>(response: Response): Promise<T> {
+export async function handleApiResponse<T = unknown>(
+  response: Response
+): Promise<T> {
   if (!response.ok) {
     let errorData: ApiError;
     try {

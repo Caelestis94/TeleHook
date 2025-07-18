@@ -168,7 +168,7 @@ export function DashboardStatsCards({
     : "grid-cols-5 gap-4";
 
   return (
-    <div className={`grid ${gridClasses}`}>
+    <div className={`grid mb-4 ${gridClasses}`}>
       {dashboardStats.map((stat) => (
         <StatCard
           key={stat.title}

@@ -41,7 +41,7 @@ export async function PUT(
     },
     body: JSON.stringify(data),
   });
-  
+
   const body = await res.json();
   if (!res.ok) {
     return NextResponse.json(body, { status: res.status });

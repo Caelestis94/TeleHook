@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     },
   });
   const body = await res.json();
-  
+
   if (!res.ok) {
     return NextResponse.json(body, { status: res.status });
   }

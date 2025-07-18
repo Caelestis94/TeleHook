@@ -74,7 +74,7 @@ public class HtmlEscaper
         while (currentIndex < text.Length)
         {
             var nearestMatch = FindNearestMatch(text, currentIndex);
-            
+
             if (nearestMatch == null)
             {
                 // No more matches, escape the rest of the text
@@ -172,7 +172,7 @@ public class HtmlEscaper
             var language = match.Groups[1].Value;
             var code = match.Groups[2].Value;
             var escapedCode = EscapeSpecialChars(code);
-            
+
             if (string.IsNullOrEmpty(language))
             {
                 return $"<pre><code>{escapedCode}</code></pre>";

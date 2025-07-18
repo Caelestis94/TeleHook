@@ -30,6 +30,7 @@ export function LogDetailsDialog({
   onOpenChange,
 }: LogDetailsDialogProps) {
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const isTablet = useMediaQuery("(max-width: 1024px)");
 
   const getStatusBadge = (statusCode: number) => {
     if (statusCode >= 200 && statusCode < 300) {
@@ -257,7 +258,7 @@ export function LogDetailsDialog({
 
                     {log.telegramResponse && (
                       <div>
-                        <Label className="font-medium text-muted-foreground">
+                        <Label className="font-medium text-muted-foreground mb-2">
                           Telegram Response
                         </Label>
                         {(() => {
@@ -330,13 +331,14 @@ export function LogDetailsDialog({
             </div>
           </div>
         </div>
-        {isMobile && (
-          <DialogFooter>
-            <Button className="w-full" onClick={() => onOpenChange(false)}>
-              Close
-            </Button>
-          </DialogFooter>
-        )}
+        {isMobile ||
+          (isTablet && (
+            <DialogFooter>
+              <Button className="w-full" onClick={() => onOpenChange(false)}>
+                Close
+              </Button>
+            </DialogFooter>
+          ))}
       </DialogContent>
     </Dialog>
   );

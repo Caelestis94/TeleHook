@@ -20,9 +20,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  UserUpdateValidationSchema,
-} from "@/validation/user-schemas";
+import { UserUpdateValidationSchema } from "@/validation/user-schemas";
 import type { UserUpdateFormData } from "@/types/user";
 import { useUpdateUser } from "@/hooks/mutations";
 import { useOidcAvailable } from "@/hooks/queries";

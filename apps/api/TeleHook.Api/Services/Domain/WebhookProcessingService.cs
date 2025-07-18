@@ -192,9 +192,9 @@ public class WebhookProcessingService : IWebhookProcessingService
             webhook.ParseMode, JsonSerializer.Serialize(payload));
 
         var messageFormattingResult = _messageFormattingService.FormatMessage(webhook, payload);
-        
+
         if (messageFormattingResult.IsSuccess)
-            await _loggingService.LogMessageFormattingAsync(requestId,  messageFormattingResult.MessageText!);
+            await _loggingService.LogMessageFormattingAsync(requestId, messageFormattingResult.MessageText!);
 
         return messageFormattingResult;
     }
@@ -208,7 +208,7 @@ public class WebhookProcessingService : IWebhookProcessingService
         _logger.LogDebug("Sending message to Telegram for webhook '{WebhookUUID}'", webhook.Uuid);
         var telegramResult = await _telegramService.SendMessageAsync(webhook, messageText);
 
-        await _loggingService.LogTelegramResponseAsync(requestId, telegramResult.IsSuccess,telegramResult.ResponseMessage);
+        await _loggingService.LogTelegramResponseAsync(requestId, telegramResult.IsSuccess, telegramResult.ResponseMessage);
 
         if (telegramResult.IsSuccess)
         {
@@ -221,7 +221,7 @@ public class WebhookProcessingService : IWebhookProcessingService
 
         await _loggingService.CompleteRequestAsync(requestId, telegramResult.StatusCode,
             JsonSerializer.Serialize(new
-                { message = "Telegram API error occurred", details = new[] { telegramResult.Error } }),
+            { message = "Telegram API error occurred", details = new[] { telegramResult.Error } }),
             (int)stopwatch.ElapsedMilliseconds);
 
         // Send failure notification

@@ -40,13 +40,13 @@ public class WebhookManagementServiceTests
             .Returns(mockWebhookLogRepository.Object);
         _mockUnitOfWork.Setup(x => x.WebhookStats)
             .Returns(mockWebhookStatRepository.Object);
-        
+
         // Setup default empty collections for delete operations
         mockWebhookLogRepository.Setup(x => x.GetByWebhookIdAsync(It.IsAny<int>()))
             .ReturnsAsync(new List<WebhookLog>());
         mockWebhookStatRepository.Setup(x => x.GetByWebhookIdAsync(It.IsAny<int>()))
             .ReturnsAsync(new List<WebhookStat>());
-            
+
         // Setup transaction methods
         _mockUnitOfWork.Setup(x => x.BeginTransactionAsync())
             .Returns(Task.CompletedTask);
@@ -180,7 +180,7 @@ public class WebhookManagementServiceTests
         Assert.Equal(request.MessageTemplate, result.MessageTemplate);
         Assert.NotNull(result.Uuid);
         Assert.False(result.IsDisabled);
-        
+
         _mockValidationService.Verify(x => x.ValidateAsync(request), Times.Once);
         _mockWebhookRepository.Verify(x => x.AddAsync(It.IsAny<Webhook>()), Times.Once);
         _mockUnitOfWork.Verify(x => x.SaveChangesAsync(), Times.Once);
@@ -422,7 +422,7 @@ public class WebhookManagementServiceTests
         Assert.Equal(51, result.SecretKey.Length); // "sk_" + 48 hex characters
         Assert.NotEqual("old-key", webhook.SecretKey);
         Assert.Equal(result.SecretKey, webhook.SecretKey);
-        
+
         _mockWebhookRepository.Verify(x => x.GetByIdAsync(1), Times.Once);
         _mockWebhookRepository.Verify(x => x.UpdateAsync(webhook), Times.Once);
         _mockUnitOfWork.Verify(x => x.SaveChangesAsync(), Times.Once);
@@ -437,7 +437,7 @@ public class WebhookManagementServiceTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<BadRequestException>(() => _service.GenerateSecretKeyAsync(request));
         Assert.Equal("Invalid ID provided.", exception.Message);
-        
+
         _mockWebhookRepository.Verify(x => x.GetByIdAsync(It.IsAny<int>()), Times.Never);
         _mockWebhookRepository.Verify(x => x.UpdateAsync(It.IsAny<Webhook>()), Times.Never);
     }
@@ -451,7 +451,7 @@ public class WebhookManagementServiceTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<BadRequestException>(() => _service.GenerateSecretKeyAsync(request));
         Assert.Equal("Invalid ID provided.", exception.Message);
-        
+
         _mockWebhookRepository.Verify(x => x.GetByIdAsync(It.IsAny<int>()), Times.Never);
         _mockWebhookRepository.Verify(x => x.UpdateAsync(It.IsAny<Webhook>()), Times.Never);
     }
@@ -468,7 +468,7 @@ public class WebhookManagementServiceTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<NotFoundException>(() => _service.GenerateSecretKeyAsync(request));
         Assert.Equal("Webhook with ID '999' was not found", exception.Message);
-        
+
         _mockWebhookRepository.Verify(x => x.GetByIdAsync(999), Times.Once);
         _mockWebhookRepository.Verify(x => x.UpdateAsync(It.IsAny<Webhook>()), Times.Never);
         _mockUnitOfWork.Verify(x => x.SaveChangesAsync(), Times.Never);
@@ -480,7 +480,7 @@ public class WebhookManagementServiceTests
         // Arrange
         var request1 = new GenerateSecretKeyDto { WebhookId = 1 };
         var request2 = new GenerateSecretKeyDto { WebhookId = 2 };
-        
+
         var webhook1 = new Webhook { Id = 1, Uuid = "uuid1", Name = "Webhook 1" };
         var webhook2 = new Webhook { Id = 2, Uuid = "uuid2", Name = "Webhook 2" };
 
@@ -512,7 +512,7 @@ public class WebhookManagementServiceTests
         Assert.Equal("Secret key generated successfully for new webhook", result.Message);
         Assert.StartsWith("sk_", result.SecretKey);
         Assert.Equal(51, result.SecretKey.Length); // "sk_" + 48 hex characters
-        
+
         // Verify key contains only valid hex characters after "sk_" prefix
         var hexPart = result.SecretKey.Substring(3);
         Assert.True(hexPart.All(c => "0123456789abcdef".Contains(c)));
@@ -530,7 +530,7 @@ public class WebhookManagementServiceTests
         Assert.NotEqual(result1.SecretKey, result2.SecretKey);
         Assert.NotEqual(result1.SecretKey, result3.SecretKey);
         Assert.NotEqual(result2.SecretKey, result3.SecretKey);
-        
+
         // All should start with "sk_"
         Assert.StartsWith("sk_", result1.SecretKey);
         Assert.StartsWith("sk_", result2.SecretKey);
@@ -546,7 +546,7 @@ public class WebhookManagementServiceTests
         // Assert
         Assert.NotNull(result);
         Assert.StartsWith("sk_", result.SecretKey);
-        
+
         // Verify no database operations were performed
         _mockWebhookRepository.Verify(x => x.GetByIdAsync(It.IsAny<int>()), Times.Never);
         _mockWebhookRepository.Verify(x => x.UpdateAsync(It.IsAny<Webhook>()), Times.Never);

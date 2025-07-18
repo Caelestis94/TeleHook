@@ -18,7 +18,7 @@ public class ApiKeyAuthenticationMiddleware
     }
 
     private const string ApiKeyHeaderName = "X-API-KEY";
-    
+
     public async Task InvokeAsync(HttpContext context, IUnitOfWork unitOfWork)
     {
         var endpoint = context.GetEndpoint();
@@ -36,7 +36,7 @@ public class ApiKeyAuthenticationMiddleware
         {
             requiresApiKey = true;
         }
-        
+
 
         if (requiresApiKey)
         {
@@ -62,6 +62,6 @@ public class ApiKeyAuthenticationMiddleware
 
         await _next(context);
     }
-    
+
 
 }
